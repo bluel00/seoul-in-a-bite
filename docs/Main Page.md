@@ -1,207 +1,253 @@
-# **📝 메인 페이지 기능 명세서 (FSD 기반)**
+# **메인 페이지 기능 명세서 (`KoreanEats` 메인 화면)**
 
-## **📌 1. 개요**
+## **1. 개발 우선순위**
 
-- **페이지명:** `메인 페이지` (맛집 리스트)
-- **경로:** `/`
-- **주요 기능:**  
-  ✅ 검색 및 필터링을 통한 맛집 탐색  
-  ✅ 리스트 형태로 맛집 정보 제공  
-  ✅ 맛집 선택 시 상세 페이지 이동  
-  ✅ 길찾기 버튼을 통한 지도 앱(카카오맵/구글맵) 연결
+메인 페이지는 서비스의 첫 화면이므로 **가장 먼저 개발**해야 합니다. 다음과 같은 요소들을 중심으로 구현합니다.
+
+- **필수 요소 (우선 개발)**
+
+  - 검색 바(Search Bar)
+  - 추천 레스토랑 섹션(Featured Restaurants)
+  - 음식 탐색(Explore) 카드
+  - 카테고리 필터
+
+- **보조 요소 (후순위 개발)**
+  - 하트(찜하기) 기능
+  - 위치 기반 탐색 기능
+  - 애니메이션 및 UI 개선
 
 ---
 
-## **📌 2. 프로젝트 구조 (FSD 적용)**
+## **2. 프론트엔드 기능 명세서**
+
+### **📌 페이지 및 파일 구조**
 
 ```
-your-nextjs-project/
-├── app/
-│   ├── api/
-│   │   └── restaurants/route.ts         # 맛집 리스트 API (Route Handler)
-│   ├── page.tsx                         # 메인 페이지 (맛집 리스트)
-│   ├── restaurants/                     # 맛집 관련 페이지
-│   │   ├── [id]/page.tsx                 # 맛집 상세 페이지
-│   │   ├── ui/RestaurantList.tsx         # 맛집 리스트 UI
-│   │   ├── ui/RestaurantCard.tsx         # 개별 맛집 카드 UI
-│   │   ├── lib/useRestaurant.ts          # 맛집 데이터 호출 로직 (react-query)
-│   │   ├── lib/mappers.ts                 # API 응답 데이터 매핑
-│   │   └── index.ts
+app/
+├── page.tsx  # 메인 페이지 (홈)
+├── layout.tsx  # 기본 레이아웃
 │
-├── entities/
-│   ├── restaurant/
-│   │   ├── model/                         # Drizzle ORM 스키마 정의
-│   │   ├── lib/restaurant-api.ts           # API 호출 로직 (fetcher)
-│   │   ├── ui/RestaurantRating.tsx         # 맛집 평점 UI
-│   │   ├── ui/RestaurantLocation.tsx       # 맛집 위치 UI
-│   │   ├── ui/RestaurantPrice.tsx          # 맛집 가격대 UI
-│   │   └── index.ts
+widgets/
+├── SearchBar.tsx  # 검색 창
+├── CategoryFilter.tsx  # 카테고리 필터
+├── FeaturedRestaurants.tsx  # 추천 레스토랑 리스트
+├── ExploreSection.tsx  # 음식 탐색 카드 리스트
 │
-├── features/
-│   ├── search/
-│   │   ├── ui/SearchBar.tsx                # 검색창 UI
-│   │   ├── lib/useSearch.ts                 # 검색 기능 로직
-│   │   └── index.ts
-│   ├── filters/
-│   │   ├── ui/FilterButton.tsx              # 필터 버튼 UI
-│   │   ├── ui/FilterModal.tsx               # 필터 모달 UI
-│   │   ├── lib/useFilters.ts                 # 필터 로직
-│   │   ├── lib/filter-options.ts             # 필터 옵션 정의
-│   │   └── index.ts
+shared/ui/
+├── button.tsx  # 공통 버튼 (ShadCN)
+├── input.tsx  # 입력 필드 (ShadCN)
+├── card.tsx  # 카드 컴포넌트 (ShadCN)
 │
-├── shared/
-│   ├── ui/button.tsx                         # ShadCN 버튼 컴포넌트
-│   ├── lib/fetcher.ts                        # API Fetch 유틸 함수
-│   ├── lib/navigation.ts                     # 길찾기 기능 네비게이션 유틸
-│   ├── config/constants.ts                   # 프로젝트 공통 상수
-│   ├── config/theme.ts                        # 테마 설정
-│   ├── layout/Header.tsx                      # 공통 헤더
-│   ├── layout/Footer.tsx                      # 공통 푸터
-│   ├── styles/globals.css
-│   └── index.ts
-│
-├── db/
-│   ├── schema.ts                              # DrizzleORM 데이터베이스 스키마
-│   └── index.ts                               # DB 초기화
+features/favorites/
+├── model/favorites.ts  # 찜하기 상태 관리 (Zustand)
+├── api/favorites.ts  # 찜하기 API 연동
 ```
 
 ---
 
-## **📌 3. 프론트엔드 기능 명세**
+### **📌 UI 및 기능 상세**
 
-### **📍 3.1 컴포넌트 구조**
+#### **1️⃣ 검색 바 (SearchBar.tsx)**
 
-| 컴포넌트명               | 역할                        |
-| ------------------------ | --------------------------- |
-| `SearchBar.tsx`          | 검색어 입력 UI 및 검색 기능 |
-| `FilterButton.tsx`       | 필터 버튼 UI                |
-| `FilterModal.tsx`        | 필터 옵션 선택 모달         |
-| `RestaurantList.tsx`     | 맛집 리스트 UI              |
-| `RestaurantCard.tsx`     | 개별 맛집 카드 UI           |
-| `RestaurantRating.tsx`   | 맛집 평점 UI                |
-| `RestaurantPrice.tsx`    | 가격대 표시 UI              |
-| `RestaurantLocation.tsx` | 위치 정보 UI                |
-| `button.tsx`             | ShadCN 버튼 컴포넌트        |
+- **컴포넌트 위치**: `widgets/SearchBar.tsx`
+- **ShadCN 컴포넌트 사용**: ✅ (Input)
+- **기능**
+  - 사용자가 음식명을 입력하면 해당 키워드로 검색
+  - 돋보기 아이콘 클릭 시 검색 실행
+  - 위치 아이콘 클릭 시 현재 위치 기반 추천
 
----
+#### **2️⃣ 카테고리 필터 (CategoryFilter.tsx)**
 
-### **📍 3.2 검색 기능 (`features/search/ui/SearchBar.tsx`)**
+- **컴포넌트 위치**: `widgets/CategoryFilter.tsx`
+- **ShadCN 컴포넌트 사용**: ✅ (Button)
+- **기능**
+  - 사용자 선택에 따라 음식 리스트 필터링
+  - 현재 선택된 카테고리는 스타일 강조
+  - 좌우 스크롤 가능 (모바일 지원)
 
-**🔹 기능:**
+#### **3️⃣ 추천 레스토랑 리스트 (FeaturedRestaurants.tsx)**
 
-- 사용자가 검색어를 입력하면 실시간으로 리스트를 필터링
-- 입력값 변경 시 `useSearch.ts` 훅을 통해 API 요청
+- **컴포넌트 위치**: `widgets/FeaturedRestaurants.tsx`
+- **ShadCN 컴포넌트 사용**: ✅ (Card)
+- **기능**
+  - 인기 있는 레스토랑 정보 표시 (이름, 별점, 태그)
+  - "Order" 버튼 클릭 시 상세 페이지 이동
+  - 하트 아이콘 클릭 시 찜하기 기능 실행
 
-**🔹 인터페이스:**
+#### **4️⃣ 음식 탐색 카드 (ExploreSection.tsx)**
 
-```tsx
-export interface SearchBarProps {
-  onSearch: (query: string) => void;
-}
-```
-
-**🔹 UI 예시:**
-
-```tsx
-export function SearchBar({ onSearch }: SearchBarProps) {
-  return (
-    <Input
-      placeholder="검색어를 입력하세요..."
-      onChange={(e) => onSearch(e.target.value)}
-    />
-  );
-}
-```
+- **컴포넌트 위치**: `widgets/ExploreSection.tsx`
+- **ShadCN 컴포넌트 사용**: ✅ (Card)
+- **기능**
+  - 다양한 한식 메뉴 카드 목록 제공
+  - 조리 시간 및 음식명 표시
+  - 하트 클릭 시 찜하기 추가
 
 ---
 
-### **📍 3.3 필터 기능 (`features/filters/ui/FilterButton.tsx`)**
+### **📌 API 연동 명세**
 
-**🔹 기능:**
-
-- 버튼 클릭 시 `FilterModal.tsx`를 오픈
-- 사용자가 선택한 필터 값을 `useFilters.ts`를 통해 저장
-
-**🔹 UI 예시:**
-
-```tsx
-export function FilterButton({ onOpen }: { onOpen: () => void }) {
-  return <Button onClick={onOpen}>필터</Button>;
-}
-```
+| 기능          | API 엔드포인트              | 메서드   | 요청 데이터         | 응답 데이터             |
+| ------------- | --------------------------- | -------- | ------------------- | ----------------------- |
+| 검색          | `/api/search`               | `GET`    | `?query=비빔밥`     | 검색 결과 리스트        |
+| 추천 레스토랑 | `/api/restaurants/featured` | `GET`    | 없음                | 추천 레스토랑 리스트    |
+| 음식 목록     | `/api/foods`                | `GET`    | `?category=Banchan` | 해당 카테고리 음식 목록 |
+| 찜하기 추가   | `/api/favorites`            | `POST`   | `{ foodId: 1 }`     | 성공 여부               |
+| 찜하기 삭제   | `/api/favorites/{id}`       | `DELETE` | `{ id: 1 }`         | 성공 여부               |
 
 ---
 
-### **📍 3.4 맛집 리스트 (`restaurants/ui/RestaurantList.tsx`)**
+### **📌 테스트 체크리스트**
 
-**🔹 기능:**
+✅ 검색 기능이 정상 작동하는가?  
+✅ 필터 선택 시 해당 음식만 표시되는가?  
+✅ "Order" 버튼 클릭 시 상세 페이지로 이동하는가?  
+✅ 찜하기 버튼 클릭 시 API 요청이 정상적으로 이루어지는가?  
+✅ 모바일 환경에서 필터 스크롤이 원활하게 작동하는가?
 
-- `useRestaurant.ts`에서 API 데이터를 가져와 리스트 렌더링
-- `RestaurantCard.tsx`를 반복 렌더링
+---
 
-**🔹 UI 예시:**
+## **3. 백엔드 기능 명세서**
 
-```tsx
-export function RestaurantList({ restaurants }: { restaurants: Restaurant[] }) {
-  return (
-    <div>
-      {restaurants.map((restaurant) => (
-        <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-      ))}
-    </div>
-  );
-}
+### **📌 API 엔드포인트 및 파일 구조**
+
+```
+app/api/
+├── search/route.ts  # 검색 API
+├── restaurants/featured/route.ts  # 추천 레스토랑 API
+├── foods/route.ts  # 음식 목록 API
+├── favorites/route.ts  # 찜하기 API
 ```
 
 ---
 
-### **📍 3.5 길찾기 기능 (`shared/lib/navigation.ts`)**
+### **📌 API 상세 명세**
 
-**🔹 기능:**
+#### **1️⃣ 음식 검색 API (`/api/search`)**
 
-- `kakaomap://route` 또는 `https://maps.google.com/?q=목적지` 호출
-- `RestaurantCard.tsx`에서 사용
-
-```tsx
-export function openMap(location: string) {
-  window.open(`https://maps.google.com/?q=${location}`, "_blank");
-}
-```
-
----
-
-## **📌 4. 백엔드 기능 명세**
-
-### **📍 4.1 API 엔드포인트 (`app/api/restaurants/route.ts`)**
-
-| 엔드포인트              | 메서드 | 설명                         |
-| ----------------------- | ------ | ---------------------------- |
-| `/api/restaurants`      | `GET`  | 맛집 리스트 가져오기         |
-| `/api/restaurants/[id]` | `GET`  | 특정 맛집 상세 정보 가져오기 |
-
-```tsx
-export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const search = url.searchParams.get("search") || "";
-  const filter = url.searchParams.get("filter") || "";
-
-  const results = await db
-    .select()
-    .from(restaurants)
-    .where(like(restaurants.name, `%${search}%`))
-    .where(eq(restaurants.priceRange, filter))
-    .execute();
-
-  return Response.json(results);
-}
-```
+- **파일 위치**: `app/api/search/route.ts`
+- **메서드**: `GET`
+- **요청 예시**:
+  ```json
+  GET /api/search?query=Bibimbap
+  ```
+- **응답 예시**:
+  ```json
+  [{ "id": 1, "name": "Bibimbap", "image": "/bibimbap.jpg", "rating": 4.5 }]
+  ```
 
 ---
 
-## **📌 5. 결론**
+#### **2️⃣ 추천 레스토랑 API (`/api/restaurants/featured`)**
 
-✅ **FSD 적용하여 기능별 구조 분리**  
-✅ **검색 및 필터 기능 구현 (Feature-Sliced Design 방식)**  
-✅ **Drizzle ORM을 통한 DB 연동**  
-✅ **Route Handler 기반 API 구현**  
-✅ **ShadCN UI 활용하여 일관된 스타일 유지**
+- **파일 위치**: `app/api/restaurants/featured/route.ts`
+- **메서드**: `GET`
+- **요청 데이터**: 없음
+- **응답 예시**:
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "K-BBQ House",
+      "rating": 4.7,
+      "tags": ["Authentic", "Spicy"],
+      "image": "/kbqq.jpg"
+    }
+  ]
+  ```
+
+---
+
+#### **3️⃣ 음식 리스트 API (`/api/foods`)**
+
+- **파일 위치**: `app/api/foods/route.ts`
+- **메서드**: `GET`
+- **요청 예시**:
+  ```json
+  GET /api/foods?category=Banchan
+  ```
+- **응답 예시**:
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "Kimchi",
+      "image": "/kimchi.jpg",
+      "cookingTime": "10 min"
+    }
+  ]
+  ```
+
+---
+
+#### **4️⃣ 찜하기 API (`/api/favorites`)**
+
+- **파일 위치**: `app/api/favorites/route.ts`
+- **메서드**: `POST`
+- **요청 예시**:
+  ```json
+  POST /api/favorites
+  {
+    "foodId": 1
+  }
+  ```
+- **응답 예시**:
+
+  ```json
+  { "success": true }
+  ```
+
+- **메서드**: `DELETE`
+- **요청 예시**:
+  ```json
+  DELETE /api/favorites/1
+  ```
+- **응답 예시**:
+  ```json
+  { "success": true }
+  ```
+
+---
+
+### **📌 데이터베이스 설계 (Drizzle ORM)**
+
+- **테이블: `restaurants`**
+  ```ts
+  id: number;
+  name: string;
+  rating: number;
+  tags: string[];
+  image: string;
+  ```
+- **테이블: `foods`**
+  ```ts
+  id: number;
+  name: string;
+  image: string;
+  cookingTime: string;
+  ```
+- **테이블: `favorites`**
+  ```ts
+  id: number;
+  userId: number;
+  foodId: number;
+  ```
+
+---
+
+### **📌 테스트 체크리스트**
+
+✅ 검색 시 올바른 결과가 반환되는가?  
+✅ 추천 레스토랑 API가 정상 작동하는가?  
+✅ 카테고리 필터가 정상 작동하는가?  
+✅ 찜하기 기능이 정상 작동하는가?
+
+---
+
+## **최종 개발 순서**
+
+1️⃣ **검색 바** 구현  
+2️⃣ **카테고리 필터** 개발  
+3️⃣ **추천 레스토랑 API 연동**  
+4️⃣ **Explore 섹션 개발**  
+5️⃣ **찜하기 기능 추가**
