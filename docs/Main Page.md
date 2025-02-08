@@ -1,253 +1,223 @@
-# **메인 페이지 기능 명세서 (`KoreanEats` 메인 화면)**
+## **개발 우선순위 설정 - 메인 페이지**
 
-## **1. 개발 우선순위**
+**📌 우선순위:**
 
-메인 페이지는 서비스의 첫 화면이므로 **가장 먼저 개발**해야 합니다. 다음과 같은 요소들을 중심으로 구현합니다.
-
-- **필수 요소 (우선 개발)**
-
-  - 검색 바(Search Bar)
-  - 추천 레스토랑 섹션(Featured Restaurants)
-  - 음식 탐색(Explore) 카드
-  - 카테고리 필터
-
-- **보조 요소 (후순위 개발)**
-  - 하트(찜하기) 기능
-  - 위치 기반 탐색 기능
-  - 애니메이션 및 UI 개선
+1. **검색 바(서칭바) 및 탭다운 추천 키워드** (쉬운 기능)
+2. **테마별 맛집 카드 UI** (쉬운 기능)
+3. **테마 카드 클릭 시 맛집 목록 페이지 이동 (라우팅)** (중간 난이도)
+4. **검색어 입력 시 실시간 자동완성 (추후 확장 가능)** (어려운 기능)
 
 ---
 
-## **2. 프론트엔드 기능 명세서**
+# **프론트엔드 기능명세서 - 메인 페이지**
 
-### **📌 페이지 및 파일 구조**
+### **1. 페이지 및 파일 구조**
 
-```
-app/
-├── page.tsx  # 메인 페이지 (홈)
-├── layout.tsx  # 기본 레이아웃
-│
-widgets/
-├── SearchBar.tsx  # 검색 창
-├── CategoryFilter.tsx  # 카테고리 필터
-├── FeaturedRestaurants.tsx  # 추천 레스토랑 리스트
-├── ExploreSection.tsx  # 음식 탐색 카드 리스트
-│
-shared/ui/
-├── button.tsx  # 공통 버튼 (ShadCN)
-├── input.tsx  # 입력 필드 (ShadCN)
-├── card.tsx  # 카드 컴포넌트 (ShadCN)
-│
-features/favorites/
-├── model/favorites.ts  # 찜하기 상태 관리 (Zustand)
-├── api/favorites.ts  # 찜하기 API 연동
-```
+📌 **파일 위치:** `app/page.tsx` (메인 페이지)  
+📌 **사용할 UI 컴포넌트:**
+
+- **검색 바(Search Bar)** → `shared/ui/input.tsx` (ShadCN 사용)
+- **테마별 맛집 카드** → `entities/restaurant/ui/ThemeCard.tsx` (ShadCN 사용)
+- **추천 키워드 리스트** → `features/search/ui/KeywordDropdown.tsx`
 
 ---
 
-### **📌 UI 및 기능 상세**
+### **2. 화면 레이아웃 및 UI 상세**
 
-#### **1️⃣ 검색 바 (SearchBar.tsx)**
+#### **📍 검색 바(서칭바)**
 
-- **컴포넌트 위치**: `widgets/SearchBar.tsx`
-- **ShadCN 컴포넌트 사용**: ✅ (Input)
-- **기능**
-  - 사용자가 음식명을 입력하면 해당 키워드로 검색
-  - 돋보기 아이콘 클릭 시 검색 실행
-  - 위치 아이콘 클릭 시 현재 위치 기반 추천
+- 위치: 페이지 최상단
+- 입력창 내부에 🔍 아이콘 표시 (ShadCN `Input` 컴포넌트 사용)
+- 검색어 입력 시 **X(삭제 버튼)** 표시
+- 클릭 시 **추천 키워드 리스트(탭다운 메뉴) 표시**
 
-#### **2️⃣ 카테고리 필터 (CategoryFilter.tsx)**
+✅ **ShadCN 컴포넌트 사용:**
 
-- **컴포넌트 위치**: `widgets/CategoryFilter.tsx`
-- **ShadCN 컴포넌트 사용**: ✅ (Button)
-- **기능**
-  - 사용자 선택에 따라 음식 리스트 필터링
-  - 현재 선택된 카테고리는 스타일 강조
-  - 좌우 스크롤 가능 (모바일 지원)
+- `Input` → `shared/ui/input.tsx`
 
-#### **3️⃣ 추천 레스토랑 리스트 (FeaturedRestaurants.tsx)**
-
-- **컴포넌트 위치**: `widgets/FeaturedRestaurants.tsx`
-- **ShadCN 컴포넌트 사용**: ✅ (Card)
-- **기능**
-  - 인기 있는 레스토랑 정보 표시 (이름, 별점, 태그)
-  - "Order" 버튼 클릭 시 상세 페이지 이동
-  - 하트 아이콘 클릭 시 찜하기 기능 실행
-
-#### **4️⃣ 음식 탐색 카드 (ExploreSection.tsx)**
-
-- **컴포넌트 위치**: `widgets/ExploreSection.tsx`
-- **ShadCN 컴포넌트 사용**: ✅ (Card)
-- **기능**
-  - 다양한 한식 메뉴 카드 목록 제공
-  - 조리 시간 및 음식명 표시
-  - 하트 클릭 시 찜하기 추가
+📌 **파일 경로:** `features/search/ui/SearchBar.tsx`
 
 ---
 
-### **📌 API 연동 명세**
+#### **📍 추천 키워드 리스트 (탭다운 메뉴)**
 
-| 기능          | API 엔드포인트              | 메서드   | 요청 데이터         | 응답 데이터             |
-| ------------- | --------------------------- | -------- | ------------------- | ----------------------- |
-| 검색          | `/api/search`               | `GET`    | `?query=비빔밥`     | 검색 결과 리스트        |
-| 추천 레스토랑 | `/api/restaurants/featured` | `GET`    | 없음                | 추천 레스토랑 리스트    |
-| 음식 목록     | `/api/foods`                | `GET`    | `?category=Banchan` | 해당 카테고리 음식 목록 |
-| 찜하기 추가   | `/api/favorites`            | `POST`   | `{ foodId: 1 }`     | 성공 여부               |
-| 찜하기 삭제   | `/api/favorites/{id}`       | `DELETE` | `{ id: 1 }`         | 성공 여부               |
+- **검색 바 클릭 시** 하단에 **추천 키워드 표시**
+- 사용자가 추천 키워드 선택 시, 해당 키워드가 검색창에 자동 입력됨
+- 키워드 예시: `"한식"`, `"미슐랭 맛집"`, `"대만인이 많이 찾는 맛집"`
+
+📌 **파일 경로:** `features/search/ui/KeywordDropdown.tsx`
 
 ---
 
-### **📌 테스트 체크리스트**
+#### **📍 테마별 맛집 카드 (2x3 배열)**
 
-✅ 검색 기능이 정상 작동하는가?  
-✅ 필터 선택 시 해당 음식만 표시되는가?  
-✅ "Order" 버튼 클릭 시 상세 페이지로 이동하는가?  
-✅ 찜하기 버튼 클릭 시 API 요청이 정상적으로 이루어지는가?  
-✅ 모바일 환경에서 필터 스크롤이 원활하게 작동하는가?
+- **배열 형태:** 2행 3열 (총 6개 카드)
+- 각 카드 클릭 시 **해당 테마에 맞는 맛집 목록 페이지로 이동**
+- **배경 이미지 + 타이틀 텍스트** 표시
+- **ShadCN 카드 컴포넌트 사용**
+- **호버 효과:** 터치 시 확대(Scale 1.05)
+
+✅ **ShadCN 컴포넌트 사용:**
+
+- `Card` → `shared/ui/card.tsx`
+
+📌 **파일 경로:** `entities/restaurant/ui/ThemeCard.tsx`
 
 ---
 
-## **3. 백엔드 기능 명세서**
+### **3. 페이지 간 이동 (라우팅) 및 API 연동**
 
-### **📌 API 엔드포인트 및 파일 구조**
+📌 **라우팅:**
 
-```
-app/api/
-├── search/route.ts  # 검색 API
-├── restaurants/featured/route.ts  # 추천 레스토랑 API
-├── foods/route.ts  # 음식 목록 API
-├── favorites/route.ts  # 찜하기 API
+- 검색어 입력 후 **Enter** → `app/search/page.tsx` (검색 결과 페이지로 이동)
+- 테마 카드 클릭 → `app/category/[slug]/page.tsx` (해당 테마의 맛집 리스트 페이지)
+
+📌 **API 연동:**
+
+- 검색창 입력 시 **자동완성 API 호출** (추후 개발)
+- 추천 키워드 리스트는 **백엔드에서 제공받음** (`GET /api/search/keywords`)
+
+---
+
+### **4. 테스트 항목**
+
+✅ 검색 바 클릭 시 추천 키워드 리스트가 정상적으로 표시되는가?  
+✅ 추천 키워드 클릭 시 검색 바에 자동 입력되는가?  
+✅ 테마별 카드 클릭 시 올바른 페이지로 이동하는가?  
+✅ 모바일 환경에서 UI가 정상적으로 표시되는가?
+
+---
+
+# **백엔드 기능명세서 - 메인 페이지**
+
+### **1. API 엔드포인트 및 파일 구조**
+
+📌 **파일 위치:** `app/api/search/route.ts`
+
+📌 **사용할 기술:**
+
+- **Next.js Route Handler** (`app/api/.../route.ts`)
+- **Drizzle ORM** (DB 연동)
+
+---
+
+### **2. API 상세 정의**
+
+#### **📍 1. 추천 키워드 리스트 API**
+
+**✅ 엔드포인트:** `GET /api/search/keywords`
+
+- **설명:**
+  - 검색 바 클릭 시, 추천 키워드 리스트 반환
+  - 키워드는 DB에서 관리
+
+**📌 요청:**
+
+```ts
+GET / api / search / keywords;
 ```
 
----
+**📌 응답:**
 
-### **📌 API 상세 명세**
+```json
+{
+  "keywords": ["한식", "미슐랭 맛집", "대만인이 많이 찾는 맛집"]
+}
+```
 
-#### **1️⃣ 음식 검색 API (`/api/search`)**
-
-- **파일 위치**: `app/api/search/route.ts`
-- **메서드**: `GET`
-- **요청 예시**:
-  ```json
-  GET /api/search?query=Bibimbap
-  ```
-- **응답 예시**:
-  ```json
-  [{ "id": 1, "name": "Bibimbap", "image": "/bibimbap.jpg", "rating": 4.5 }]
-  ```
+📌 **파일 경로:** `app/api/search/keywords/route.ts`
 
 ---
 
-#### **2️⃣ 추천 레스토랑 API (`/api/restaurants/featured`)**
+#### **📍 2. 테마별 맛집 리스트 API**
 
-- **파일 위치**: `app/api/restaurants/featured/route.ts`
-- **메서드**: `GET`
-- **요청 데이터**: 없음
-- **응답 예시**:
-  ```json
-  [
+**✅ 엔드포인트:** `GET /api/restaurants/themes`
+
+- **설명:**
+  - 메인 페이지에서 테마별 맛집 카드 정보를 불러옴
+  - 테마 이름과 대표 이미지 반환
+
+**📌 요청:**
+
+```ts
+GET / api / restaurants / themes;
+```
+
+**📌 응답:**
+
+```json
+{
+  "themes": [
     {
       "id": 1,
-      "name": "K-BBQ House",
-      "rating": 4.7,
-      "tags": ["Authentic", "Spicy"],
-      "image": "/kbqq.jpg"
-    }
-  ]
-  ```
-
----
-
-#### **3️⃣ 음식 리스트 API (`/api/foods`)**
-
-- **파일 위치**: `app/api/foods/route.ts`
-- **메서드**: `GET`
-- **요청 예시**:
-  ```json
-  GET /api/foods?category=Banchan
-  ```
-- **응답 예시**:
-  ```json
-  [
+      "title": "미슐랭 가이드 선정 맛집",
+      "imageUrl": "/images/michelin.jpg",
+      "slug": "michelin"
+    },
     {
-      "id": 1,
-      "name": "Kimchi",
-      "image": "/kimchi.jpg",
-      "cookingTime": "10 min"
+      "id": 2,
+      "title": "SNS에서 인기 있는 맛집",
+      "imageUrl": "/images/sns.jpg",
+      "slug": "sns"
     }
   ]
-  ```
+}
+```
+
+📌 **파일 경로:** `app/api/restaurants/themes/route.ts`
 
 ---
 
-#### **4️⃣ 찜하기 API (`/api/favorites`)**
+### **3. 데이터베이스 설계**
 
-- **파일 위치**: `app/api/favorites/route.ts`
-- **메서드**: `POST`
-- **요청 예시**:
-  ```json
-  POST /api/favorites
-  {
-    "foodId": 1
-  }
-  ```
-- **응답 예시**:
+📌 **파일 경로:** `db/schema.ts`
 
-  ```json
-  { "success": true }
-  ```
+#### **📍 추천 키워드 테이블**
 
-- **메서드**: `DELETE`
-- **요청 예시**:
-  ```json
-  DELETE /api/favorites/1
-  ```
-- **응답 예시**:
-  ```json
-  { "success": true }
-  ```
+```ts
+export const searchKeywords = pgTable("search_keywords", {
+  id: serial("id").primaryKey(),
+  keyword: varchar("keyword", { length: 50 }).unique().notNull(),
+});
+```
+
+#### **📍 테마별 맛집 테이블**
+
+```ts
+export const restaurantThemes = pgTable("restaurant_themes", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 100 }).notNull(),
+  imageUrl: varchar("image_url", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 50 }).unique().notNull(),
+});
+```
 
 ---
 
-### **📌 데이터베이스 설계 (Drizzle ORM)**
+### **4. 테스트 항목**
 
-- **테이블: `restaurants`**
-  ```ts
-  id: number;
-  name: string;
-  rating: number;
-  tags: string[];
-  image: string;
-  ```
-- **테이블: `foods`**
-  ```ts
-  id: number;
-  name: string;
-  image: string;
-  cookingTime: string;
-  ```
-- **테이블: `favorites`**
-  ```ts
-  id: number;
-  userId: number;
-  foodId: number;
-  ```
+✅ `GET /api/search/keywords` 호출 시 추천 키워드가 정상적으로 반환되는가?  
+✅ `GET /api/restaurants/themes` 호출 시 테마 카드 데이터가 정상적으로 반환되는가?  
+✅ API 요청 시 DB에서 올바른 데이터를 가져오는가?  
+✅ `slug`를 기반으로 올바른 맛집 페이지로 이동하는가?
 
 ---
 
-### **📌 테스트 체크리스트**
+# **🚀 최종 요약**
 
-✅ 검색 시 올바른 결과가 반환되는가?  
-✅ 추천 레스토랑 API가 정상 작동하는가?  
-✅ 카테고리 필터가 정상 작동하는가?  
-✅ 찜하기 기능이 정상 작동하는가?
+✅ **프론트엔드:**
+
+- `SearchBar.tsx` (`ShadCN Input 사용`)
+- `KeywordDropdown.tsx` (추천 키워드 리스트)
+- `ThemeCard.tsx` (`ShadCN Card 사용`)
+- 검색 시 `app/search/page.tsx`로 이동
+
+✅ **백엔드:**
+
+- `GET /api/search/keywords` (추천 키워드 API)
+- `GET /api/restaurants/themes` (테마별 맛집 API)
+- `Drizzle`을 사용해 DB 설계 (`search_keywords`, `restaurant_themes` 테이블)
+
+✅ **테스트 체크리스트 포함**
 
 ---
-
-## **최종 개발 순서**
-
-1️⃣ **검색 바** 구현  
-2️⃣ **카테고리 필터** 개발  
-3️⃣ **추천 레스토랑 API 연동**  
-4️⃣ **Explore 섹션 개발**  
-5️⃣ **찜하기 기능 추가**
