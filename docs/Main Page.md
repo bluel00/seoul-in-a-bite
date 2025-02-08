@@ -1,223 +1,218 @@
-## **개발 우선순위 설정 - 메인 페이지**
+### 📌 **메인 페이지 개발 명세서 - 한국을 방문하는 대만 관광객을 위한 맛집 정보 서비스 (모바일웹 MVP 버전)**
 
-**📌 우선순위:**
+**아키텍처**: FSD (Feature-Sliced Design)  
+**개발 방식**: 선언형 방식 (유지보수 용이)  
+**주요 기술 스택**:
 
-1. **검색 바(서칭바) 및 탭다운 추천 키워드** (쉬운 기능)
-2. **테마별 맛집 카드 UI** (쉬운 기능)
-3. **테마 카드 클릭 시 맛집 목록 페이지 이동 (라우팅)** (중간 난이도)
-4. **검색어 입력 시 실시간 자동완성 (추후 확장 가능)** (어려운 기능)
-
----
-
-# **프론트엔드 기능명세서 - 메인 페이지**
-
-### **1. 페이지 및 파일 구조**
-
-📌 **파일 위치:** `app/page.tsx` (메인 페이지)  
-📌 **사용할 UI 컴포넌트:**
-
-- **검색 바(Search Bar)** → `shared/ui/input.tsx` (ShadCN 사용)
-- **테마별 맛집 카드** → `entities/restaurant/ui/ThemeCard.tsx` (ShadCN 사용)
-- **추천 키워드 리스트** → `features/search/ui/KeywordDropdown.tsx`
+- **Next.js (App Router)**
+- **ShadCN (UI 라이브러리, Radix UI 기반)**
+- **TailwindCSS (스타일링)**
+- **Next.js Route Handler (백엔드 API 개발)**
 
 ---
 
-### **2. 화면 레이아웃 및 UI 상세**
+# **1️⃣ 메인 페이지 개요 (`/main`)**
 
-#### **📍 검색 바(서칭바)**
+## **📍 기능 및 구성**
 
-- 위치: 페이지 최상단
-- 입력창 내부에 🔍 아이콘 표시 (ShadCN `Input` 컴포넌트 사용)
-- 검색어 입력 시 **X(삭제 버튼)** 표시
-- 클릭 시 **추천 키워드 리스트(탭다운 메뉴) 표시**
+✅ **탭다운 카테고리 버튼 (ShadCN Select 사용)**  
+✅ **테마별 맛집 추천 카드 (2x3 그리드)**  
+✅ **PC 환경에서 좌우 20% 여백 추가 후 중앙 정렬**  
+✅ **클릭 시 해당 페이지(`category/[slug]` 또는 `theme/[slug]`)로 이동**
 
-✅ **ShadCN 컴포넌트 사용:**
+## **📍 주요 컴포넌트**
 
-- `Input` → `shared/ui/input.tsx`
+### **1) `CategorySelect.tsx` (탭다운 카테고리 버튼)**
 
-📌 **파일 경로:** `features/search/ui/SearchBar.tsx`
+**위치:** `widgets/CategorySelect.tsx`  
+**사용 라이브러리:** `ShadCN <Select>`, `React useState`
 
----
+📌 **기능**
 
-#### **📍 추천 키워드 리스트 (탭다운 메뉴)**
+- 기본값: `"카테고리 선택하기"`
+- 클릭 시 카테고리 리스트 (`한식, 중식, 일식, 디저트, 24시간 운영, 비건/채식`) 표시
+- 선택한 카테고리의 **맛집 리스트 페이지로 이동 (`/category/[slug]`)**
 
-- **검색 바 클릭 시** 하단에 **추천 키워드 표시**
-- 사용자가 추천 키워드 선택 시, 해당 키워드가 검색창에 자동 입력됨
-- 키워드 예시: `"한식"`, `"미슐랭 맛집"`, `"대만인이 많이 찾는 맛집"`
+```tsx
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
 
-📌 **파일 경로:** `features/search/ui/KeywordDropdown.tsx`
+export default function CategorySelect() {
+  const router = useRouter();
 
----
-
-#### **📍 테마별 맛집 카드 (2x3 배열)**
-
-- **배열 형태:** 2행 3열 (총 6개 카드)
-- 각 카드 클릭 시 **해당 테마에 맞는 맛집 목록 페이지로 이동**
-- **배경 이미지 + 타이틀 텍스트** 표시
-- **ShadCN 카드 컴포넌트 사용**
-- **호버 효과:** 터치 시 확대(Scale 1.05)
-
-✅ **ShadCN 컴포넌트 사용:**
-
-- `Card` → `shared/ui/card.tsx`
-
-📌 **파일 경로:** `entities/restaurant/ui/ThemeCard.tsx`
-
----
-
-### **3. 페이지 간 이동 (라우팅) 및 API 연동**
-
-📌 **라우팅:**
-
-- 검색어 입력 후 **Enter** → `app/search/page.tsx` (검색 결과 페이지로 이동)
-- 테마 카드 클릭 → `app/category/[slug]/page.tsx` (해당 테마의 맛집 리스트 페이지)
-
-📌 **API 연동:**
-
-- 검색창 입력 시 **자동완성 API 호출** (추후 개발)
-- 추천 키워드 리스트는 **백엔드에서 제공받음** (`GET /api/search/keywords`)
-
----
-
-### **4. 테스트 항목**
-
-✅ 검색 바 클릭 시 추천 키워드 리스트가 정상적으로 표시되는가?  
-✅ 추천 키워드 클릭 시 검색 바에 자동 입력되는가?  
-✅ 테마별 카드 클릭 시 올바른 페이지로 이동하는가?  
-✅ 모바일 환경에서 UI가 정상적으로 표시되는가?
-
----
-
-# **백엔드 기능명세서 - 메인 페이지**
-
-### **1. API 엔드포인트 및 파일 구조**
-
-📌 **파일 위치:** `app/api/search/route.ts`
-
-📌 **사용할 기술:**
-
-- **Next.js Route Handler** (`app/api/.../route.ts`)
-- **Drizzle ORM** (DB 연동)
-
----
-
-### **2. API 상세 정의**
-
-#### **📍 1. 추천 키워드 리스트 API**
-
-**✅ 엔드포인트:** `GET /api/search/keywords`
-
-- **설명:**
-  - 검색 바 클릭 시, 추천 키워드 리스트 반환
-  - 키워드는 DB에서 관리
-
-**📌 요청:**
-
-```ts
-GET / api / search / keywords;
-```
-
-**📌 응답:**
-
-```json
-{
-  "keywords": ["한식", "미슐랭 맛집", "대만인이 많이 찾는 맛집"]
+  return (
+    <Select onValueChange={(value) => router.push(`/category/${value}`)}>
+      <SelectTrigger>카테고리 선택하기</SelectTrigger>
+      <SelectContent>
+        <SelectItem value="korean">한식</SelectItem>
+        <SelectItem value="chinese">중식</SelectItem>
+        <SelectItem value="japanese">일식</SelectItem>
+        <SelectItem value="dessert">디저트</SelectItem>
+        <SelectItem value="24-hours">24시간 운영</SelectItem>
+        <SelectItem value="vegan">비건/채식</SelectItem>
+      </SelectContent>
+    </Select>
+  );
 }
 ```
 
-📌 **파일 경로:** `app/api/search/keywords/route.ts`
+---
+
+### **2) `ThemeCard.tsx` (테마별 추천 맛집 카드)**
+
+**위치:** `entities/ThemeCard.tsx`  
+**사용 라이브러리:** `Next.js <Link>`, `TailwindCSS`
+
+📌 **기능**
+
+- `props`로 `title`, `image`, `href` 값을 받아 동적으로 렌더링
+- 클릭 시 해당 URL로 이동 (`/theme/[slug]`)
+
+```tsx
+import Link from "next/link";
+
+export default function ThemeCard({
+  title,
+  image,
+  href,
+}: {
+  title: string;
+  image: string;
+  href: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="relative w-full h-40 bg-cover bg-center rounded-xl shadow-md hover:scale-105 transition-transform"
+      style={{ backgroundImage: `url(${image})` }}
+    >
+      <div className="absolute bottom-4 left-4 text-white font-bold text-lg">
+        {title}
+      </div>
+    </Link>
+  );
+}
+```
 
 ---
 
-#### **📍 2. 테마별 맛집 리스트 API**
+### **3) `MainPage.tsx` (메인 페이지)**
 
-**✅ 엔드포인트:** `GET /api/restaurants/themes`
+**위치:** `pages/main/MainPage.tsx`  
+**사용 라이브러리:** `Next.js <Link>`, `TailwindCSS`, `ShadCN Select`
 
-- **설명:**
-  - 메인 페이지에서 테마별 맛집 카드 정보를 불러옴
-  - 테마 이름과 대표 이미지 반환
+📌 **기능**
 
-**📌 요청:**
+- **상단에 `CategorySelect.tsx` 포함**
+- **아래 `ThemeCard.tsx` 6개 배치 (2x3 그리드)**
+- **PC에서는 중앙 정렬 및 좌우 20% 여백 추가**
 
-```ts
-GET / api / restaurants / themes;
+📌 **반응형 TailwindCSS 적용**
+
+```tsx
+<div className="container mx-auto max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl">
 ```
 
-**📌 응답:**
+📌 **전체 코드**
 
-```json
-{
-  "themes": [
+```tsx
+import CategorySelect from "@/widgets/CategorySelect";
+import ThemeCard from "@/entities/ThemeCard";
+
+export default function MainPage() {
+  const themes = [
     {
-      "id": 1,
-      "title": "미슐랭 가이드 선정 맛집",
-      "imageUrl": "/images/michelin.jpg",
-      "slug": "michelin"
+      title: "미슐랭 가이드 선정 맛집",
+      image: "/images/michelin.jpg",
+      href: "/theme/michelin",
     },
     {
-      "id": 2,
-      "title": "SNS에서 인기 있는 맛집",
-      "imageUrl": "/images/sns.jpg",
-      "slug": "sns"
-    }
-  ]
+      title: "현지인이 추천하는 숨은 맛집",
+      image: "/images/local.jpg",
+      href: "/theme/local",
+    },
+    {
+      title: "SNS에서 인기 있는 맛집",
+      image: "/images/sns.jpg",
+      href: "/theme/sns",
+    },
+    {
+      title: "대만인이 많이 찾는 맛집",
+      image: "/images/taiwan.jpg",
+      href: "/theme/taiwan",
+    },
+    {
+      title: "비건/채식 옵션이 있는 맛집",
+      image: "/images/vegan.jpg",
+      href: "/theme/vegan",
+    },
+    {
+      title: "24시간 운영하는 맛집",
+      image: "/images/24hours.jpg",
+      href: "/theme/24-hours",
+    },
+  ];
+
+  return (
+    <div className="container mx-auto max-w-md px-4 md:max-w-lg lg:max-w-2xl xl:max-w-4xl">
+      <div className="my-6">
+        <CategorySelect />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        {themes.map((theme, index) => (
+          <ThemeCard key={index} {...theme} />
+        ))}
+      </div>
+    </div>
+  );
 }
 ```
 
-📌 **파일 경로:** `app/api/restaurants/themes/route.ts`
-
 ---
 
-### **3. 데이터베이스 설계**
+# **2️⃣ 반응형 및 스타일링**
 
-📌 **파일 경로:** `db/schema.ts`
+📌 **모바일 (360~414px)**
 
-#### **📍 추천 키워드 테이블**
+- 전체 페이지 너비: `max-width: 480px`
+- 2x3 그리드 레이아웃 유지
 
-```ts
-export const searchKeywords = pgTable("search_keywords", {
-  id: serial("id").primaryKey(),
-  keyword: varchar("keyword", { length: 50 }).unique().notNull(),
-});
-```
+📌 **PC (좌우 20% 여백 추가 후 중앙 정렬)**
 
-#### **📍 테마별 맛집 테이블**
+- `max-width: 1024px`
+- **좌우 여백 적용 (`lg:max-w-2xl xl:max-w-4xl`)**
+- Tailwind 적용:
 
-```ts
-export const restaurantThemes = pgTable("restaurant_themes", {
-  id: serial("id").primaryKey(),
-  title: varchar("title", { length: 100 }).notNull(),
-  imageUrl: varchar("image_url", { length: 255 }).notNull(),
-  slug: varchar("slug", { length: 50 }).unique().notNull(),
-});
+```tsx
+<div className="container mx-auto max-w-[480px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1200px]">
 ```
 
 ---
 
-### **4. 테스트 항목**
+# **3️⃣ 메인 페이지 API 명세**
 
-✅ `GET /api/search/keywords` 호출 시 추천 키워드가 정상적으로 반환되는가?  
-✅ `GET /api/restaurants/themes` 호출 시 테마 카드 데이터가 정상적으로 반환되는가?  
-✅ API 요청 시 DB에서 올바른 데이터를 가져오는가?  
-✅ `slug`를 기반으로 올바른 맛집 페이지로 이동하는가?
-
----
-
-# **🚀 최종 요약**
-
-✅ **프론트엔드:**
-
-- `SearchBar.tsx` (`ShadCN Input 사용`)
-- `KeywordDropdown.tsx` (추천 키워드 리스트)
-- `ThemeCard.tsx` (`ShadCN Card 사용`)
-- 검색 시 `app/search/page.tsx`로 이동
-
-✅ **백엔드:**
-
-- `GET /api/search/keywords` (추천 키워드 API)
-- `GET /api/restaurants/themes` (테마별 맛집 API)
-- `Drizzle`을 사용해 DB 설계 (`search_keywords`, `restaurant_themes` 테이블)
-
-✅ **테스트 체크리스트 포함**
+📌 **API 엔드포인트**
+| 메서드 | 엔드포인트 | 설명 |
+|--------|-----------|------|
+| `GET` | `/api/categories` | 전체 카테고리 리스트 반환 |
+| `GET` | `/api/theme` | 테마별 추천 맛집 리스트 반환 |
 
 ---
+
+# **4️⃣ 결론**
+
+✅ **ShadCN Select 적용한 탭다운 카테고리 버튼**  
+✅ **테마별 추천 맛집 카드 UI (2x3 그리드)**  
+✅ **PC 환경 중앙 정렬 및 좌우 20% 여백 적용**  
+✅ **FSD 구조 적용하여 유지보수 용이**
+
+🚀 **다음 단계**
+
+- API 연동 (`/api/categories`, `/api/theme`)
+- 애니메이션 적용 (`hover:scale-105`)
+- 번체 중국어 지원 (i18n 적용) 🚀
