@@ -15,8 +15,8 @@ export function RestaurantCard({
   imageUrl,
 }: RestaurantCardProps) {
   return (
-    <Link href={`/restaurant/${id}`}>
-      <div className="bg-white rounded-2xl p-3 shadow-sm border border-border hover:shadow-md transition-shadow">
+    <Link href={`/restaurant/${id}`} className="block touch-manipulation">
+      <div className="bg-white rounded-2xl p-3 shadow-sm border border-border hover:bg-primary/5 active:bg-primary/10 transition-colors">
         <div className="relative w-full aspect-[4/3] mb-3">
           <Image
             src={imageUrl}
