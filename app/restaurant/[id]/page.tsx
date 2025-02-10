@@ -5,6 +5,7 @@ import {
 } from "@/shared/lib/mock-data";
 import { RestaurantDetail } from "@/entities/restaurant/ui/RestaurantDetail";
 import { notFound } from "next/navigation";
+import { DetailHeader } from "@/app/components/DetailHeader";
 
 interface RestaurantPageProps {
   params: {
@@ -28,10 +29,11 @@ export default function RestaurantPage({ params }: RestaurantPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-background pt-safe-top">
-      <div className="pt-4">
+    <div className="fixed inset-0 bg-background z-50 overflow-y-auto">
+      <DetailHeader title={restaurant.name} rating={restaurant.rating} />
+      <div className="mx-auto w-full max-w-[480px] pt-4">
         <RestaurantDetail restaurant={restaurant} />
       </div>
-    </main>
+    </div>
   );
 }
