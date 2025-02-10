@@ -5,14 +5,43 @@ import Link from "next/link";
 import { ArrowLeft, SearchX } from "lucide-react";
 
 interface ThemePageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }> | undefined;
 }
 
-export default function ThemePage({ params }: ThemePageProps) {
-  const theme = THEMES.find((t) => t.slug === params.slug);
-  const restaurants = MOCK_RESTAURANTS.filter((r) => r.theme === params.slug);
+export default async function ThemePage({ params }: ThemePageProps) {
+  if (!params) {
+    return (
+      <>
+        <Header showCloseButton />
+        <main className="min-h-screen bg-background">
+          <div className="mx-auto w-full max-w-[480px] px-4 py-6">
+            <div className="flex flex-col items-center justify-center gap-4 py-12">
+              <SearchX className="h-12 w-12 text-muted-foreground" />
+              <h1 className="text-xl font-semibold">
+                존재하지 않는 테마입니다
+              </h1>
+              <p className="text-sm text-muted-foreground text-center">
+                요청하신 테마를 찾을 수 없습니다.
+                <br />
+                다른 테마를 선택해주세요.
+              </p>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                홈으로 돌아가기
+              </Link>
+            </div>
+          </div>
+        </main>
+      </>
+    );
+  }
+
+  const { slug } = await params;
+  const theme = THEMES.find((t) => t.slug === slug);
+  const restaurants = MOCK_RESTAURANTS.filter((r) => r.theme === slug);
 
   if (!theme) {
     return (

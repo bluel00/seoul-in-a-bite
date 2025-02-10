@@ -3,11 +3,10 @@ import {
   MOCK_THEME_RESTAURANTS,
 } from "@/shared/lib/mock-data";
 import { RestaurantCard } from "@/entities/restaurant/ui/RestaurantCard";
+import { notFound } from "next/navigation";
 
 interface CategoryPageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }> | undefined;
 }
 
 function getCategoryName(slug: string): string {
@@ -29,8 +28,12 @@ function getCategoryName(slug: string): string {
   return categoryMap[slug] || slug;
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const { slug } = params;
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  if (!params) {
+    notFound();
+  }
+
+  const { slug } = await params;
 
   // 카테고리별 맛집과 테마별 맛집을 모두 가져옵니다
   const categoryRestaurants = MOCK_RESTAURANTS.filter(
@@ -44,6 +47,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const restaurants = slug.match(/^(michelin|sns|date|local|value|taiwan)$/)
     ? themeRestaurants
     : categoryRestaurants;
+
+  // 유효하지 않은 카테고리인 경우 404 페이지로 이동
+  if (restaurants.length === 0) {
+    notFound();
+  }
 
   return (
     <main className="min-h-screen bg-background pt-safe-top">

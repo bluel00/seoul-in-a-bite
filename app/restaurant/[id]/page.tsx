@@ -4,14 +4,17 @@ import { notFound } from "next/navigation";
 import { DetailHeader } from "@/app/components/DetailHeader";
 
 interface RestaurantDetailPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }> | undefined;
 }
 
-export default function RestaurantDetailPage({
-  params: { id },
+export default async function RestaurantDetailPage({
+  params,
 }: RestaurantDetailPageProps) {
+  if (!params) {
+    notFound();
+  }
+
+  const { id } = await params;
   const restaurant = getRestaurantById(id);
 
   if (!restaurant) {
