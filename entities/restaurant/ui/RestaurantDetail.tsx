@@ -2,8 +2,9 @@
 
 import { Restaurant } from "@/shared/lib/mock-data";
 import { Card } from "@/shared/ui/card";
-import { Star, MapPin, Clock, DollarSign } from "lucide-react";
+import { Star, MapPin, Clock, DollarSign, Navigation2 } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/shared/ui/button";
 
 interface RestaurantDetailProps {
   restaurant: Restaurant;
@@ -20,7 +21,41 @@ export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
     priceRange,
     isOpen,
     category,
+    latitude,
+    longitude,
   } = restaurant;
+
+  const handleNavigation = () => {
+    // 모바일 기기 확인
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    // 네이버 지도 URL
+    const naverMapsUrl = `nmap://place?lat=${latitude}&lng=${longitude}&name=${encodeURIComponent(
+      name
+    )}&appname=seoul-in-a-bite`;
+
+    // 카카오 지도 URL
+    const kakaoMapsUrl = `kakaomap://look?p=${latitude},${longitude}`;
+
+    // 구글 지도 URL
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+
+    if (isMobile) {
+      // 모바일에서는 네이버 지도나 카카오맵 앱으로 연결 시도
+      try {
+        window.location.href = naverMapsUrl;
+        setTimeout(() => {
+          window.location.href = kakaoMapsUrl;
+        }, 1000);
+      } catch {
+        // 앱이 없는 경우 구글 지도로 연결
+        window.location.href = googleMapsUrl;
+      }
+    } else {
+      // 데스크톱에서는 구글 지도로 연결
+      window.open(googleMapsUrl, "_blank");
+    }
+  };
 
   return (
     <div className="mx-auto w-full max-w-[480px] px-4 space-y-6">
@@ -71,6 +106,16 @@ export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
               <span>{priceRange}</span>
             </div>
           </div>
+
+          {/* 길찾기 버튼 */}
+          <Button
+            onClick={handleNavigation}
+            className="w-full flex items-center justify-center gap-2"
+            variant="default"
+          >
+            <Navigation2 className="h-5 w-5" />
+            길찾기
+          </Button>
         </div>
       </Card>
     </div>

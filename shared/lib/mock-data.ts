@@ -58,6 +58,8 @@ export interface Restaurant {
   operatingHours: string;
   isOpen: boolean;
   theme?: string;
+  latitude: number;
+  longitude: number;
 }
 
 export const MOCK_RESTAURANTS: Restaurant[] = [
@@ -73,6 +75,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:00 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 2,
@@ -85,6 +89,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩₩",
     operatingHours: "11:30 - 21:30",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 3,
@@ -97,6 +103,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩",
     operatingHours: "24시간",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 4,
@@ -109,6 +117,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:30 - 22:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 5,
@@ -121,6 +131,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:00 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
 
   // 중식 (chinese)
@@ -135,6 +147,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:00 - 21:30",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 7,
@@ -147,6 +161,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩",
     operatingHours: "11:00 - 22:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 8,
@@ -159,6 +175,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩₩",
     operatingHours: "11:30 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 9,
@@ -171,6 +189,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "12:00 - 22:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 10,
@@ -183,6 +203,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:00 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
 
   // 일식 (japanese)
@@ -197,6 +219,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩₩",
     operatingHours: "11:30 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 12,
@@ -209,6 +233,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩₩",
     operatingHours: "11:30 - 22:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 13,
@@ -221,6 +247,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩",
     operatingHours: "11:00 - 21:30",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 14,
@@ -233,6 +261,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:00 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 15,
@@ -245,6 +275,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩",
     operatingHours: "10:30 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
 
   // 디저트 (dessert)
@@ -259,6 +291,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "12:00 - 22:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 17,
@@ -271,6 +305,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:00 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 18,
@@ -283,6 +319,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "12:00 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 19,
@@ -295,6 +333,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:00 - 20:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 20,
@@ -307,6 +347,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩",
     operatingHours: "12:00 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
 
   // 24시간 운영 (24-hours)
@@ -321,6 +363,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩",
     operatingHours: "24시간",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 22,
@@ -333,6 +377,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "24시간",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 23,
@@ -345,6 +391,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩",
     operatingHours: "24시간",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 24,
@@ -357,6 +405,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩",
     operatingHours: "24시간",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 25,
@@ -369,6 +419,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "24시간",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
 
   // 비건/채식 (vegan)
@@ -383,6 +435,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩₩",
     operatingHours: "10:00 - 22:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 27,
@@ -395,6 +449,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:00 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 28,
@@ -407,6 +463,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "09:00 - 20:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 29,
@@ -419,6 +477,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩₩",
     operatingHours: "11:30 - 21:00",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 30,
@@ -431,6 +491,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     priceRange: "₩₩",
     operatingHours: "11:00 - 20:30",
     isOpen: true,
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
 ];
 
@@ -447,6 +509,8 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     operatingHours: "12:00 - 22:00",
     isOpen: true,
     theme: "michelin",
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 102,
@@ -460,6 +524,8 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     operatingHours: "10:00 - 22:00",
     isOpen: true,
     theme: "sns",
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 103,
@@ -473,6 +539,8 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     operatingHours: "17:00 - 23:00",
     isOpen: true,
     theme: "date",
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 104,
@@ -486,6 +554,8 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     operatingHours: "10:30 - 20:00",
     isOpen: true,
     theme: "local",
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 105,
@@ -499,6 +569,8 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     operatingHours: "11:00 - 21:00",
     isOpen: true,
     theme: "value",
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
   {
     id: 106,
@@ -512,5 +584,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     operatingHours: "11:30 - 21:30",
     isOpen: true,
     theme: "taiwan",
+    latitude: 37.574187,
+    longitude: 126.983421,
   },
 ];
