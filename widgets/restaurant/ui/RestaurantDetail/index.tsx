@@ -2,9 +2,11 @@
 
 import { Restaurant } from "@/entities/restaurant/model/types";
 import Image from "next/image";
-import { NavigationButton } from "@/features/restaurant/navigation/ui/NavigationButton";
 import { RestaurantMap } from "@/features/restaurant/map/ui/RestaurantMap";
-import { Clock, MapPin, Phone, Instagram } from "lucide-react";
+import { Clock } from "lucide-react";
+import { MapPin } from "lucide-react";
+import { Phone } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { Badge } from "@/shared/ui/badge";
 
@@ -32,7 +34,7 @@ export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-[calc(2rem+env(safe-area-inset-bottom,0px))]">
       <div className="mx-auto max-w-[480px] flex flex-col gap-4 px-4">
         {/* 메인 이미지 및 기본 정보 */}
         <div className="bg-white overflow-hidden">
