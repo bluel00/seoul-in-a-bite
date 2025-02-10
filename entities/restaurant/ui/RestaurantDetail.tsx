@@ -10,6 +10,21 @@ interface RestaurantDetailProps {
   restaurant: Restaurant;
 }
 
+const getPriceRangeText = (priceRange: string) => {
+  switch (priceRange) {
+    case "₩":
+      return "1만원 이하";
+    case "₩₩":
+      return "1-3만원대";
+    case "₩₩₩":
+      return "3-5만원대";
+    case "₩₩₩₩":
+      return "5만원 이상";
+    default:
+      return priceRange;
+  }
+};
+
 export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
   const {
     name,
@@ -103,7 +118,9 @@ export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
             </div>
             <div className="flex items-center gap-2 text-gray-600">
               <DollarSign className="h-5 w-5" />
-              <span>{priceRange}</span>
+              <span>
+                {priceRange} ({getPriceRangeText(priceRange)})
+              </span>
             </div>
           </div>
 
