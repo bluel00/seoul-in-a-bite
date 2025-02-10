@@ -5,6 +5,7 @@ import { Card } from "@/shared/ui/card";
 import { Star, MapPin, Clock, DollarSign, Navigation2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/shared/ui/button";
+import { StaticMap } from "@/features/map/ui/StaticMap";
 
 interface RestaurantDetailProps {
   restaurant: Restaurant;
@@ -121,6 +122,17 @@ export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
               <span>
                 {priceRange} ({getPriceRangeText(priceRange)})
               </span>
+            </div>
+          </div>
+
+          {/* 지도 */}
+          <div className="pt-2">
+            <div className="w-full overflow-hidden rounded-lg">
+              <StaticMap
+                latitude={latitude}
+                longitude={longitude}
+                name={name}
+              />
             </div>
           </div>
 
