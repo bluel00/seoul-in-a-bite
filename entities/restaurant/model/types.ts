@@ -10,4 +10,5 @@ export interface Restaurant {
   category: string;
   latitude: number;
   longitude: number;
+  tags: string[];
 }

@@ -1,4 +1,4 @@
-import { getRestaurantById, Restaurant } from "@/shared/lib/mock-data";
+import { getRestaurantById } from "@/shared/lib/mock-data";
 import { RestaurantDetail } from "@/widgets/restaurant/ui/RestaurantDetail";
 import { notFound } from "next/navigation";
 import { DetailHeader } from "@/app/components/DetailHeader";
@@ -19,7 +19,7 @@ export default function RestaurantDetailPage({
   }
 
   return (
-    <div className="fixed inset-0 bg-background z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-orange-100 z-50 overflow-y-auto">
       <DetailHeader title={restaurant.name} rating={restaurant.rating} />
       <div className="mx-auto w-full max-w-[480px] pt-4">
         <RestaurantDetail restaurant={restaurant} />

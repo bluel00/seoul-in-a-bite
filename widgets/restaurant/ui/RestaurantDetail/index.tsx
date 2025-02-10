@@ -10,46 +10,59 @@ interface RestaurantDetailProps {
 }
 
 export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
-  const { name, imageUrl, latitude, longitude } = restaurant;
+  const { name, imageUrl, latitude, longitude, tags = [] } = restaurant;
 
   return (
-    <div className="bg-orange-100 min-h-screen px-4 pt-20 pb-8">
-      <div className="mx-auto max-w-[480px] flex flex-col gap-12">
+    <div className="min-h-screen">
+      <div className="mx-auto max-w-[480px] flex flex-col gap-4 px-4">
         {/* 메인 이미지 및 기본 정보 */}
-        <section className="w-full">
-          <div className="bg-white rounded-3xl p-4">
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
-              <Image
-                src={imageUrl}
-                alt={name}
-                width={480}
-                height={360}
-                className="object-cover rounded-2xl"
-                sizes="(max-width: 480px) 100vw, 480px"
-                priority
-                quality={75}
-              />
+        <div className="bg-white overflow-hidden">
+          <Image
+            src={imageUrl}
+            alt={name}
+            width={480}
+            height={360}
+            className="w-full h-auto object-cover"
+            sizes="(max-width: 480px) 100vw, 480px"
+            priority
+            quality={75}
+          />
+        </div>
+
+        {/* 태그 영역 */}
+        {tags.length > 0 && (
+          <div>
+            <h3 className="text-lg font-medium mb-2">태그</h3>
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-block px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-sm font-medium shadow-sm"
+                >
+                  #{tag}
+                </span>
+              ))}
             </div>
           </div>
-        </section>
+        )}
 
         {/* 지도 */}
-        <section className="w-full">
+        <div>
           <RestaurantMap
             name={name}
             latitude={latitude}
             longitude={longitude}
           />
-        </section>
+        </div>
 
         {/* 길찾기 버튼 */}
-        <section className="w-full">
+        <div>
           <NavigationButton
             name={name}
             latitude={latitude}
             longitude={longitude}
           />
-        </section>
+        </div>
       </div>
     </div>
   );

@@ -69,6 +69,7 @@ export interface Restaurant {
   theme?: string;
   latitude: number;
   longitude: number;
+  tags: string[];
 }
 
 export const MOCK_RESTAURANTS: Restaurant[] = [
@@ -89,6 +90,13 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "baek",
     latitude: 37.5718,
     longitude: 126.9858,
+    tags: [
+      "데이트하기 좋은",
+      "분위기 좋은",
+      "가성비가 좋은",
+      "인스타감성",
+      "조용한",
+    ],
   },
   {
     id: 2,
@@ -106,6 +114,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "chef",
     latitude: 37.5825,
     longitude: 126.9814,
+    tags: ["파스타", "이탈리안", "분위기 좋은"],
   },
   {
     id: 3,
@@ -123,6 +132,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "sung",
     latitude: 37.5662,
     longitude: 126.9785,
+    tags: ["면요리", "평양냉면", "24시간"],
   },
   {
     id: 4,
@@ -140,6 +150,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "korean",
     latitude: 37.5866,
     longitude: 126.9687,
+    tags: ["길거리음식", "분위기 좋은", "가성비"],
   },
   {
     id: 5,
@@ -156,6 +167,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "korean",
     latitude: 37.5634,
     longitude: 126.985,
+    tags: ["냉면", "평양냉면", "전통한식"],
   },
 
   // 중식 (chinese)
@@ -174,6 +186,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "chinese",
     latitude: 37.5612,
     longitude: 126.9249,
+    tags: [],
   },
   {
     id: 7,
@@ -190,6 +203,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "chinese",
     latitude: 37.5687,
     longitude: 126.9341,
+    tags: [],
   },
   {
     id: 8,
@@ -206,6 +220,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "chinese",
     latitude: 37.5641,
     longitude: 126.9862,
+    tags: [],
   },
   {
     id: 9,
@@ -222,6 +237,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "chinese",
     latitude: 37.5476,
     longitude: 126.9235,
+    tags: [],
   },
   {
     id: 10,
@@ -238,6 +254,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "chinese",
     latitude: 37.5236,
     longitude: 127.0214,
+    tags: [],
   },
 
   // 일식 (japanese)
@@ -256,6 +273,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "japanese",
     latitude: 37.5657,
     longitude: 126.9892,
+    tags: [],
   },
   {
     id: 12,
@@ -272,6 +290,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "japanese",
     latitude: 37.5245,
     longitude: 127.0431,
+    tags: [],
   },
   {
     id: 13,
@@ -288,6 +307,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "japanese",
     latitude: 37.5492,
     longitude: 126.9156,
+    tags: [],
   },
   {
     id: 14,
@@ -304,6 +324,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "japanese",
     latitude: 37.4824,
     longitude: 126.9912,
+    tags: [],
   },
   {
     id: 15,
@@ -320,6 +341,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "japanese",
     latitude: 37.5138,
     longitude: 127.0857,
+    tags: [],
   },
 
   // 디저트 (dessert)
@@ -338,6 +360,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "dessert",
     latitude: 37.5216,
     longitude: 127.0201,
+    tags: [],
   },
   {
     id: 17,
@@ -354,6 +377,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "dessert",
     latitude: 37.5605,
     longitude: 126.9241,
+    tags: [],
   },
   {
     id: 18,
@@ -370,6 +394,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "dessert",
     latitude: 37.5347,
     longitude: 126.9941,
+    tags: [],
   },
   {
     id: 19,
@@ -386,6 +411,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "dessert",
     latitude: 37.5038,
     longitude: 127.0124,
+    tags: [],
   },
   {
     id: 20,
@@ -402,6 +428,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "dessert",
     latitude: 37.5814,
     longitude: 126.9816,
+    tags: [],
   },
 
   // 24시간 운영 (24-hours)
@@ -420,6 +447,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "24-hours",
     latitude: 37.5526,
     longitude: 126.9218,
+    tags: [],
   },
   {
     id: 22,
@@ -436,6 +464,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "24-hours",
     latitude: 37.5012,
     longitude: 127.0359,
+    tags: [],
   },
   {
     id: 23,
@@ -452,6 +481,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "24-hours",
     latitude: 37.5352,
     longitude: 127.0016,
+    tags: [],
   },
   {
     id: 24,
@@ -468,6 +498,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "24-hours",
     latitude: 37.5657,
     longitude: 126.9912,
+    tags: [],
   },
   {
     id: 25,
@@ -484,6 +515,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "24-hours",
     latitude: 37.5805,
     longitude: 127.0478,
+    tags: [],
   },
 
   // 비건/채식 (vegan)
@@ -502,6 +534,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "vegan",
     latitude: 37.5342,
     longitude: 126.9945,
+    tags: [],
   },
   {
     id: 27,
@@ -518,6 +551,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "vegan",
     latitude: 37.5478,
     longitude: 126.9231,
+    tags: [],
   },
   {
     id: 28,
@@ -534,6 +568,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "vegan",
     latitude: 37.5241,
     longitude: 127.0428,
+    tags: [],
   },
   {
     id: 29,
@@ -550,6 +585,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "vegan",
     latitude: 37.4821,
     longitude: 126.9915,
+    tags: [],
   },
   {
     id: 30,
@@ -566,6 +602,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     theme: "vegan",
     latitude: 37.5425,
     longitude: 127.0558,
+    tags: [],
   },
 ];
 
@@ -585,6 +622,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     theme: "michelin",
     latitude: 37.5248,
     longitude: 127.0432,
+    tags: ["미슐랭", "고급", "데이트"],
   },
   {
     id: 102,
@@ -601,6 +639,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     theme: "sns",
     latitude: 37.5345,
     longitude: 126.9942,
+    tags: ["인스타", "카페", "디저트"],
   },
   {
     id: 103,
@@ -617,6 +656,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     theme: "date",
     latitude: 37.5035,
     longitude: 127.0121,
+    tags: [],
   },
   {
     id: 104,
@@ -633,6 +673,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     theme: "local",
     latitude: 37.5701,
     longitude: 126.9987,
+    tags: [],
   },
   {
     id: 105,
@@ -649,6 +690,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     theme: "value",
     latitude: 37.4812,
     longitude: 126.9528,
+    tags: [],
   },
   {
     id: 106,
@@ -665,6 +707,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     theme: "taiwan",
     latitude: 37.5638,
     longitude: 126.9852,
+    tags: [],
   },
 ];
 
