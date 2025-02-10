@@ -18,7 +18,9 @@ export function DetailHeader({ title, rating }: DetailHeaderProps) {
             <ChevronLeft className="h-5 w-5" />
           </Link>
           <div className="flex-1 min-w-0">
-            <h1 className="text-lg font-medium truncate">{title}</h1>
+            <h1 className="text-lg font-medium text-orange-500 truncate">
+              {title}
+            </h1>
           </div>
           {rating && (
             <div className="flex items-center gap-1">

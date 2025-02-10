@@ -667,3 +667,12 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     longitude: 126.9852,
   },
 ];
+
+export function getRestaurantById(id: string): Restaurant | undefined {
+  // 모든 레스토랑 데이터를 합칩니다
+  const allRestaurants: Restaurant[] = [
+    ...MOCK_RESTAURANTS,
+    ...MOCK_THEME_RESTAURANTS,
+  ];
+  return allRestaurants.find((r) => r.id === parseInt(id, 10));
+}
