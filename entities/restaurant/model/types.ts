@@ -1,14 +1,19 @@
 export interface Restaurant {
+  id: number;
   name: string;
-  imageUrl: string;
+  description: string;
+  category: string;
   rating: number;
   reviewCount: number;
   address: string;
-  operatingHours: string;
+  imageUrl: string;
   priceRange: string;
+  operatingHours: string;
   isOpen: boolean;
-  category: string;
+  theme?: string;
   latitude: number;
   longitude: number;
   tags: string[];
+  phoneNumber?: string;
+  snsUrl?: string;
 }

@@ -70,6 +70,8 @@ export interface Restaurant {
   latitude: number;
   longitude: number;
   tags: string[];
+  phoneNumber?: string;
+  snsUrl?: string;
 }
 
 export const MOCK_RESTAURANTS: Restaurant[] = [
@@ -97,6 +99,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
       "인스타감성",
       "조용한",
     ],
+    phoneNumber: "02-123-4567",
+    snsUrl: "https://www.instagram.com/baekjongwon",
   },
   {
     id: 2,
@@ -115,6 +119,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5825,
     longitude: 126.9814,
     tags: ["파스타", "이탈리안", "분위기 좋은"],
+    phoneNumber: "02-234-5678",
   },
   {
     id: 3,
@@ -133,6 +138,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5662,
     longitude: 126.9785,
     tags: ["면요리", "평양냉면", "24시간"],
+    phoneNumber: "02-345-6789",
   },
   {
     id: 4,
@@ -151,6 +157,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5866,
     longitude: 126.9687,
     tags: ["길거리음식", "분위기 좋은", "가성비"],
+    phoneNumber: "02-456-7890",
   },
   {
     id: 5,
@@ -168,6 +175,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5634,
     longitude: 126.985,
     tags: ["냉면", "평양냉면", "전통한식"],
+    phoneNumber: "02-567-8901",
   },
 
   // 중식 (chinese)
@@ -187,6 +195,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5612,
     longitude: 126.9249,
     tags: [],
+    phoneNumber: "02-678-9012",
   },
   {
     id: 7,
@@ -204,6 +213,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5687,
     longitude: 126.9341,
     tags: [],
+    phoneNumber: "02-789-0123",
   },
   {
     id: 8,
@@ -221,6 +231,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5641,
     longitude: 126.9862,
     tags: [],
+    phoneNumber: "02-890-1234",
   },
   {
     id: 9,
@@ -238,6 +249,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5476,
     longitude: 126.9235,
     tags: [],
+    phoneNumber: "02-901-2345",
   },
   {
     id: 10,
@@ -255,6 +267,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5236,
     longitude: 127.0214,
     tags: [],
+    phoneNumber: "02-012-3456",
   },
 
   // 일식 (japanese)
@@ -274,6 +287,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5657,
     longitude: 126.9892,
     tags: [],
+    phoneNumber: "02-123-4567",
   },
   {
     id: 12,
@@ -291,6 +305,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5245,
     longitude: 127.0431,
     tags: [],
+    phoneNumber: "02-234-5678",
   },
   {
     id: 13,
@@ -308,6 +323,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5492,
     longitude: 126.9156,
     tags: [],
+    phoneNumber: "02-345-6789",
   },
   {
     id: 14,
@@ -325,6 +341,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.4824,
     longitude: 126.9912,
     tags: [],
+    phoneNumber: "02-456-7890",
   },
   {
     id: 15,
@@ -342,6 +359,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5138,
     longitude: 127.0857,
     tags: [],
+    phoneNumber: "02-567-8901",
   },
 
   // 디저트 (dessert)
@@ -361,6 +379,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5216,
     longitude: 127.0201,
     tags: [],
+    phoneNumber: "02-678-9012",
   },
   {
     id: 17,
@@ -378,6 +397,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5605,
     longitude: 126.9241,
     tags: [],
+    phoneNumber: "02-789-0123",
   },
   {
     id: 18,
@@ -395,6 +415,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5347,
     longitude: 126.9941,
     tags: [],
+    phoneNumber: "02-890-1234",
   },
   {
     id: 19,
@@ -412,6 +433,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5038,
     longitude: 127.0124,
     tags: [],
+    phoneNumber: "02-901-2345",
   },
   {
     id: 20,
@@ -429,6 +451,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5814,
     longitude: 126.9816,
     tags: [],
+    phoneNumber: "02-012-3456",
   },
 
   // 24시간 운영 (24-hours)
@@ -448,6 +471,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5526,
     longitude: 126.9218,
     tags: [],
+    phoneNumber: "02-123-4567",
   },
   {
     id: 22,
@@ -465,6 +489,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5012,
     longitude: 127.0359,
     tags: [],
+    phoneNumber: "02-234-5678",
   },
   {
     id: 23,
@@ -482,6 +507,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5352,
     longitude: 127.0016,
     tags: [],
+    phoneNumber: "02-345-6789",
   },
   {
     id: 24,
@@ -499,6 +525,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5657,
     longitude: 126.9912,
     tags: [],
+    phoneNumber: "02-456-7890",
   },
   {
     id: 25,
@@ -516,6 +543,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5805,
     longitude: 127.0478,
     tags: [],
+    phoneNumber: "02-567-8901",
   },
 
   // 비건/채식 (vegan)
@@ -535,6 +563,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5342,
     longitude: 126.9945,
     tags: [],
+    phoneNumber: "02-678-9012",
   },
   {
     id: 27,
@@ -552,6 +581,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5478,
     longitude: 126.9231,
     tags: [],
+    phoneNumber: "02-789-0123",
   },
   {
     id: 28,
@@ -569,6 +599,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5241,
     longitude: 127.0428,
     tags: [],
+    phoneNumber: "02-890-1234",
   },
   {
     id: 29,
@@ -586,6 +617,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.4821,
     longitude: 126.9915,
     tags: [],
+    phoneNumber: "02-901-2345",
   },
   {
     id: 30,
@@ -603,6 +635,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     latitude: 37.5425,
     longitude: 127.0558,
     tags: [],
+    phoneNumber: "02-012-3456",
   },
 ];
 
@@ -623,6 +656,8 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     latitude: 37.5248,
     longitude: 127.0432,
     tags: ["미슐랭", "고급", "데이트"],
+    phoneNumber: "02-345-6789",
+    snsUrl: "https://www.instagram.com/stardining",
   },
   {
     id: 102,
@@ -640,6 +675,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     latitude: 37.5345,
     longitude: 126.9942,
     tags: ["인스타", "카페", "디저트"],
+    phoneNumber: "02-456-7890",
   },
   {
     id: 103,
@@ -657,6 +693,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     latitude: 37.5035,
     longitude: 127.0121,
     tags: [],
+    phoneNumber: "02-567-8901",
   },
   {
     id: 104,
@@ -674,6 +711,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     latitude: 37.5701,
     longitude: 126.9987,
     tags: [],
+    phoneNumber: "02-678-9012",
   },
   {
     id: 105,
@@ -691,6 +729,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     latitude: 37.4812,
     longitude: 126.9528,
     tags: [],
+    phoneNumber: "02-789-0123",
   },
   {
     id: 106,
@@ -708,6 +747,7 @@ export const MOCK_THEME_RESTAURANTS: Restaurant[] = [
     latitude: 37.5638,
     longitude: 126.9852,
     tags: [],
+    phoneNumber: "02-890-1234",
   },
 ];
 
