@@ -1,7 +1,7 @@
-import { CategorySelect } from "@/widgets/CategorySelect";
 import { ThemeCard } from "@/entities/restaurant/ui/ThemeCard";
 import { MOCK_RESTAURANT_THEMES } from "@/shared/lib/mock-data";
 import { Header } from "./components/Header";
+import { SearchBar } from "./components/SearchBar";
 
 export default function Home() {
   return (
@@ -10,9 +10,9 @@ export default function Home() {
       <main className="min-h-screen bg-background">
         {/* 모바일 컨테이너 */}
         <div className="mx-auto w-full max-w-[480px] px-4 py-6">
-          {/* 카테고리 선택 섹션 */}
+          {/* 검색바 섹션 */}
           <section className="mb-8">
-            <CategorySelect />
+            <SearchBar />
           </section>
 
           {/* 테마 섹션 */}
