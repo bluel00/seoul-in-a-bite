@@ -2,7 +2,6 @@ import { RestaurantCard } from "@/app/components/RestaurantCard";
 import { Header } from "@/app/components/Header";
 import Link from "next/link";
 import { ArrowLeft, SearchX } from "lucide-react";
-import { THEMES } from "@/shared/lib/mock-data"; // 테마 정보는 임시로 유지
 import { restaurantApi } from "@/shared/api/restaurants";
 
 interface ThemePageProps {
@@ -18,7 +17,9 @@ export default async function ThemePage({ params }: ThemePageProps) {
           <div className="mx-auto w-full max-w-[480px] px-4 py-6">
             <div className="flex flex-col items-center justify-center gap-4 py-12">
               <SearchX className="h-12 w-12 text-muted-foreground" />
-              <h1 className="text-xl font-semibold">존재하지 않는 테마입니다</h1>
+              <h1 className="text-xl font-semibold">
+                존재하지 않는 테마입니다
+              </h1>
               <p className="text-sm text-muted-foreground text-center">
                 요청하신 테마를 찾을 수 없습니다.
                 <br />
@@ -40,7 +41,7 @@ export default async function ThemePage({ params }: ThemePageProps) {
 
   const { slug } = await params;
   // const theme = THEMES.find((t) => t.slug === slug); // MOCK_RESTAURANTS 대신 실제 API 호출
-  
+
   const restaurants = await restaurantApi.getRestaurantsByTheme(slug);
   const theme = await restaurantApi.getThemeBySlug(slug);
 
@@ -52,7 +53,9 @@ export default async function ThemePage({ params }: ThemePageProps) {
           <div className="mx-auto w-full max-w-[480px] px-4 py-6">
             <div className="flex flex-col items-center justify-center gap-4 py-12">
               <SearchX className="h-12 w-12 text-muted-foreground" />
-              <h1 className="text-xl font-semibold">존재하지 않는 테마입니다</h1>
+              <h1 className="text-xl font-semibold">
+                존재하지 않는 테마입니다
+              </h1>
               <p className="text-sm text-muted-foreground text-center">
                 요청하신 테마를 찾을 수 없습니다.
                 <br />
