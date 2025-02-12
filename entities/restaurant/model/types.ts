@@ -1,5 +1,5 @@
 export interface Restaurant {
-  id: number;
+  id: string; // UUID 받을 수 있게 변경
   name: string;
   description: string;
   category: string;

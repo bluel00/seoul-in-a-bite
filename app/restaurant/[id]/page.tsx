@@ -1,4 +1,4 @@
-import { getRestaurantById } from "@/shared/lib/mock-data";
+import { restaurantApi } from "@/shared/api/restaurants";
 import { RestaurantDetail } from "@/widgets/restaurant/ui/RestaurantDetail";
 import { notFound } from "next/navigation";
 import { DetailHeader } from "@/app/components/DetailHeader";
@@ -15,7 +15,7 @@ export default async function RestaurantDetailPage({
   }
 
   const { id } = await params;
-  const restaurant = getRestaurantById(id);
+  const restaurant = await restaurantApi.getRestaurantDetail(id);
 
   if (!restaurant) {
     notFound();
