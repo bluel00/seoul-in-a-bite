@@ -1,20 +1,20 @@
 import { RestaurantCard } from "./components/RestaurantCard";
-import { MOCK_RESTAURANTS } from "@/shared/lib/mock-data";
 import { Header } from "./components/Header";
 import { SearchBar } from "./components/SearchBar";
 import { ThemeBadges } from "./components/ThemeBadges";
+import { restaurantApi } from "@/shared/api/restaurants";
+import type { Restaurant } from "@/entities/restaurant/model/types";
 
 // 랜덤으로 6개의 레스토랑을 선택하는 함수
-function getRandomRestaurants(
-  restaurants: typeof MOCK_RESTAURANTS,
-  count: number
-) {
+function getRandomRestaurants(restaurants: Restaurant[], count: number) {
   const shuffled = [...restaurants].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 }
 
-export default function Home() {
-  const randomRestaurants = getRandomRestaurants(MOCK_RESTAURANTS, 6);
+export default async function Home() {
+  // 모든 레스토랑을 가져온 후 랜덤으로 6개 선택
+  const allRestaurants = await restaurantApi.getRestaurants();
+  const randomRestaurants = getRandomRestaurants(allRestaurants, 6);
 
   return (
     <>
