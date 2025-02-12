@@ -1,5 +1,5 @@
 export interface Restaurant {
-  id: string; // UUID 받을 수 있게 변경
+  id: string;
   name: string;
   description: string;
   category: string;
@@ -16,4 +16,15 @@ export interface Restaurant {
   tags: string[];
   phoneNumber?: string;
   snsUrl?: string;
+}
+
+export interface Theme {
+  id: string;
+  title: string;
+  imageUrl: string;
+  slug: string;
+}
+
+export interface RestaurantWithDistance extends Restaurant {
+  distance: number;
 }

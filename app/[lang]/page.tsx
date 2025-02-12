@@ -2,7 +2,7 @@ import { RestaurantCard } from "../components/RestaurantCard";
 import { Header } from "../components/Header";
 import { SearchBar } from "../components/SearchBar";
 import { ThemeBadges } from "../components/ThemeBadges";
-import { restaurantApi } from "@/shared/api/restaurants";
+import { restaurantService } from "@/shared/api/restaurantService";
 import type { Restaurant } from "@/entities/restaurant/model/types";
 import { i18n, type Locale } from "../i18n/settings";
 import { getDictionary } from "../i18n/dictionaries";
@@ -19,10 +19,10 @@ export default async function Home({
   params: { lang: Locale };
 }) {
   // 모든 레스토랑을 가져온 후 랜덤으로 6개 선택
-  const allRestaurants = await restaurantApi.getRestaurants();
+  const allRestaurants = await restaurantService.getRestaurants();
   const randomRestaurants = getRandomRestaurants(allRestaurants, 6);
   const dictionary = await getDictionary(lang);
-  const themes = await restaurantApi.getAllThemes();
+  const themes = await restaurantService.getAllThemes();
 
   return (
     <>

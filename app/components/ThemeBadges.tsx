@@ -1,8 +1,8 @@
 import Link from "next/link";
-import type { ThemeInfo } from "@/shared/api/restaurants";
+import type { Theme } from "@/entities/restaurant/model/types";
 
 interface ThemeBadgesProps {
-  themes: ThemeInfo[];
+  themes: Theme[];
 }
 
 export function ThemeBadges({ themes }: ThemeBadgesProps) {
