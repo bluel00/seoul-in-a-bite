@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
-import Script from "next/script";
+import ClientLayout from "./ClientLayout";
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ["latin"],
@@ -21,11 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${notoSansKr.className} antialiased`}>
-        {children}
-        <Script
-          strategy="beforeInteractive"
-          src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID}`}
-        />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

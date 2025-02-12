@@ -22,6 +22,7 @@ export default async function Home({
   const allRestaurants = await restaurantApi.getRestaurants();
   const randomRestaurants = getRandomRestaurants(allRestaurants, 6);
   const dictionary = await getDictionary(lang);
+  const themes = await restaurantApi.getAllThemes();
 
   return (
     <>
@@ -33,7 +34,7 @@ export default async function Home({
           </section>
 
           <section className="mb-8">
-            <ThemeBadges />
+            <ThemeBadges themes={themes} />
           </section>
 
           <section>

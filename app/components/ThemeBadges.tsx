@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { restaurantApi } from "@/shared/api/restaurants";
+import type { ThemeInfo } from "@/shared/api/restaurants";
 
-export async function ThemeBadges() {
-  const themes = await restaurantApi.getAllThemes();
+interface ThemeBadgesProps {
+  themes: ThemeInfo[];
+}
 
+export function ThemeBadges({ themes }: ThemeBadgesProps) {
   return (
     <div className="flex flex-wrap gap-2">
       {themes.map((theme) => (
