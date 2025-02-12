@@ -1,6 +1,6 @@
 import { Utensils, X } from "lucide-react";
 import Link from "next/link";
-import { LanguageSelector } from "./LanguageSelector";
+import { LanguageSelector } from "@/features/language/ui/LanguageSelector";
 
 interface HeaderProps {
   showCloseButton?: boolean;

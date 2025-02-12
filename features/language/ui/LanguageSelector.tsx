@@ -1,9 +1,9 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { i18n } from "../i18n/settings";
+import { i18n } from "@/app/i18n/settings"; // import 경로 수정
 
-const languageNames = {
+const languageNames: Record<string, string> = {
   en: "English",
   ko: "한국어",
   zh: "繁體中文",

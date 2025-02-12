@@ -1,0 +1,11 @@
+{
+  "recommended": "Recommended",
+  "restaurantList": "Restaurant List",
+  "themeNotFoundTitle": "Theme Not Found",
+  "themeNotFoundDescription": "The requested theme could not be found.",
+  "chooseAnotherTheme": "Please choose another theme.",
+  "home": "Back to Home",
+  "theme": "Theme",
+  "noRestaurantsFoundTitle": "No Restaurants Found",
+  "noRestaurantsFoundDescription": "No restaurants have been added to this theme yet."
+}

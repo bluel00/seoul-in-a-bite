@@ -1,7 +1,7 @@
-import { RestaurantCard } from "../components/RestaurantCard";
-import { Header } from "../components/Header";
-import { SearchBar } from "../components/SearchBar";
-import { ThemeBadges } from "../components/ThemeBadges";
+import { RestaurantCard } from "@/entities/restaurant/ui/RestaurantCard";
+import { Header } from "@/features/navigation/ui/Header";
+import { SearchBar } from "@/features/search/ui/SearchBar";
+import { ThemeBadges } from "@/features/theme/ui/ThemeBadges";
 import { restaurantService } from "@/shared/api/restaurantService";
 import type { Restaurant } from "@/entities/restaurant/model/types";
 import { i18n, type Locale } from "../i18n/settings";

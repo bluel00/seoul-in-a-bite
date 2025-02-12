@@ -8,3 +8,15 @@ const dictionaries = {
 };
 
 export const getDictionary = async (locale: Locale) => dictionaries[locale]();
+
+export type Dictionary = {
+  recommended: string;
+  restaurantList: string;
+  themeNotFoundTitle: string;
+  themeNotFoundDescription: string;
+  chooseAnotherTheme: string;
+  home: string;
+  theme: string;
+  noRestaurantsFoundTitle: string;
+  noRestaurantsFoundDescription: string;
+};

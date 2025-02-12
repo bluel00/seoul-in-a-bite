@@ -1,16 +1,13 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Noto_Sans_KR } from "next/font/google";
-import ClientLayout from "./ClientLayout";
+import { Inter } from "next/font/google";
+import ClientLayout from "@/shared/ui/layouts/ClientLayout";
 
-const notoSansKr = Noto_Sans_KR({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Seoul in a Bite",
-  description: "Discover the best restaurants in Seoul",
+  title: "당신의 앱 이름",
+  description: "앱 설명",
 };
 
 export default function RootLayout({
@@ -20,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={`${notoSansKr.className} antialiased`}>
+      <body className={inter.className}>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
