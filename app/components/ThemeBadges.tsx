@@ -1,16 +1,18 @@
 import Link from "next/link";
-import { THEMES } from "@/shared/lib/mock-data";
+import { restaurantApi } from "@/shared/api/restaurants";
 
-export function ThemeBadges() {
+export async function ThemeBadges() {
+  const themes = await restaurantApi.getAllThemes();
+
   return (
     <div className="flex flex-wrap gap-2">
-      {THEMES.map((theme) => (
+      {themes.map((theme) => (
         <Link
           key={theme.slug}
           href={`/theme/${theme.slug}`}
           className="inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium bg-primary text-white hover:bg-primary/90 active:bg-primary/75 transition-colors touch-manipulation"
         >
-          #{theme.label}
+          #{theme.title}
         </Link>
       ))}
     </div>
