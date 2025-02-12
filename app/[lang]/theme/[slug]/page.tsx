@@ -3,8 +3,8 @@ import { Header } from "@/features/navigation/ui/Header";
 import Link from "next/link";
 import { ArrowLeft, SearchX } from "lucide-react";
 import { restaurantApi } from "@/shared/api/restaurants";
-import { getDictionary } from "@/app/i18n/dictionaries";
-import type { Locale } from "@/app/i18n/settings";
+import { getDictionary } from "@/shared/i18n/dictionaries";
+import type { Locale } from "@/shared/i18n/settings";
 
 interface ThemePageProps {
   params: {
@@ -94,7 +94,8 @@ export default async function ThemePage({
               <h1 className="text-xl font-semibold">{theme.title}</h1>
             </div>
             <p className="text-sm text-muted-foreground">
-              {restaurants.length}개의 맛집을 찾았습니다
+              {restaurants.length}
+              {dictionary.restaurantsFound}
             </p>
           </section>
 

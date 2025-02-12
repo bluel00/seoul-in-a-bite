@@ -7,5 +7,6 @@
   "home": "Back to Home",
   "theme": "Theme",
   "noRestaurantsFoundTitle": "No Restaurants Found",
-  "noRestaurantsFoundDescription": "No restaurants have been added to this theme yet."
+  "noRestaurantsFoundDescription": "No restaurants have been added to this theme yet.",
+  "restaurantsFound": "restaurants found"
 }

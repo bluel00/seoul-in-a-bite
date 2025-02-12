@@ -4,8 +4,8 @@ import { SearchBar } from "@/features/search/ui/SearchBar";
 import { ThemeBadges } from "@/features/theme/ui/ThemeBadges";
 import { restaurantService } from "@/shared/api/restaurantService";
 import type { Restaurant } from "@/entities/restaurant/model/types";
-import { i18n, type Locale } from "../i18n/settings";
-import { getDictionary } from "../i18n/dictionaries";
+import { i18n, type Locale } from "@/shared/i18n/settings";
+import { getDictionary } from "@/shared/i18n/dictionaries";
 
 // 랜덤으로 지정된 개수의 레스토랑을 선택하는 함수
 function getRandomRestaurants(restaurants: Restaurant[], count: number) {
@@ -13,11 +13,13 @@ function getRandomRestaurants(restaurants: Restaurant[], count: number) {
   return shuffled.slice(0, count);
 }
 
-export default async function Home({
-  params: { lang },
-}: {
-  params: { lang: Locale };
-}) {
+interface HomePageProps {
+  params: {
+    lang: Locale;
+  };
+}
+
+export default async function Home({ params: { lang } }: HomePageProps) {
   // 모든 레스토랑을 가져온 후 랜덤으로 6개 선택
   const allRestaurants = await restaurantService.getRestaurants();
   const randomRestaurants = getRandomRestaurants(allRestaurants, 6);

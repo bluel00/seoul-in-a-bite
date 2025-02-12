@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { i18n } from "@/app/i18n/settings"; // import 경로 수정
+import { i18n } from "@/shared/i18n/settings"; // 수정된 import 경로
 
 const languageNames: Record<string, string> = {
   en: "English",

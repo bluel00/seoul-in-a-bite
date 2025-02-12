@@ -7,5 +7,6 @@
   "home": "홈으로 돌아가기",
   "theme": "테마",
   "noRestaurantsFoundTitle": "등록된 맛집이 없습니다",
-  "noRestaurantsFoundDescription": "아직 이 테마에 등록된 맛집이 없습니다."
+  "noRestaurantsFoundDescription": "아직 이 테마에 등록된 맛집이 없습니다.",
+  "restaurantsFound": "개의 맛집을 찾았습니다"
 }

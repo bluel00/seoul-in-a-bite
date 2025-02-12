@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { i18n } from "./app/i18n/settings";
+import { i18n } from "@/shared/i18n/settings";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
