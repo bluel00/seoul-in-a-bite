@@ -19,11 +19,11 @@ interface HomePageProps {
   };
 }
 
-export default async function Home({ params: { lang } }: HomePageProps) {
-  // 모든 레스토랑을 가져온 후 랜덤으로 6개 선택
+export default async function Home({ params }: HomePageProps) {
+  const lang = params.lang;
+  const dictionary = await getDictionary(lang);
   const allRestaurants = await restaurantService.getRestaurants();
   const randomRestaurants = getRandomRestaurants(allRestaurants, 6);
-  const dictionary = await getDictionary(lang);
   const themes = await restaurantService.getAllThemes();
 
   return (

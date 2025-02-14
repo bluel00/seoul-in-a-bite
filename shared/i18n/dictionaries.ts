@@ -1,15 +1,7 @@
 import "server-only";
 import type { Locale } from "./settings";
 
-const dictionaries = {
-  en: () => import("./dictionaries/en.json").then((module) => module.default),
-  ko: () => import("./dictionaries/ko.json").then((module) => module.default),
-  zh: () => import("./dictionaries/zh.json").then((module) => module.default),
-};
-
-export const getDictionary = async (locale: Locale) => dictionaries[locale]();
-
-export type Dictionary = {
+type Dictionary = {
   recommended: string;
   restaurantList: string;
   themeNotFoundTitle: string;
@@ -20,4 +12,25 @@ export type Dictionary = {
   noRestaurantsFoundTitle: string;
   noRestaurantsFoundDescription: string;
   restaurantsFound: string;
+  appName: string;
+  appDescription: string;
 };
+
+async function getDictionaryModule(locale: Locale) {
+  switch (locale) {
+    case "ko":
+      return (await import("./dictionaries/ko.json")).default;
+    case "en":
+      return (await import("./dictionaries/en.json")).default;
+    case "zh":
+      return (await import("./dictionaries/zh.json")).default;
+    default:
+      return (await import("./dictionaries/en.json")).default;
+  }
+}
+
+export const getDictionary = async (locale: Locale): Promise<Dictionary> => {
+  return getDictionaryModule(locale);
+};
+
+export type { Dictionary };

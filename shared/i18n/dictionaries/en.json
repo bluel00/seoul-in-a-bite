@@ -8,5 +8,7 @@
   "theme": "Theme",
   "noRestaurantsFoundTitle": "No Restaurants Found",
   "noRestaurantsFoundDescription": "No restaurants have been added to this theme yet.",
-  "restaurantsFound": "restaurants found"
+  "restaurantsFound": "restaurants found",
+  "appName": "Restaurant Finder",
+  "appDescription": "Find great restaurants near you"
 }

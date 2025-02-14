@@ -6,7 +6,7 @@ import type {
   Theme,
   RestaurantWithDistance,
 } from "@/entities/restaurant/model/types";
-import { calculateDistance } from "@/shared/utils/distance";
+import { calculateDistance } from "@/shared/lib/distance";
 
 export const restaurantService = {
   async getRestaurants(): Promise<Restaurant[]> {
