@@ -1,5 +1,5 @@
-import { supabase } from "@/shared/lib/supabase";
-import type { Restaurant as SupabaseRestaurant } from "@/shared/types/restaurant";
+import { db } from "@/shared/lib/database";
+import type { Restaurant as SupabaseRestaurant } from "./schema";
 import type { Restaurant as FrontendRestaurant } from "@/entities/restaurant/model/types";
 
 // 기본 타입 정의
@@ -80,7 +80,7 @@ function toRad(degrees: number): number {
 // API 객체
 export const restaurantApi = {
   async getRestaurants(): Promise<FrontendRestaurant[]> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -97,7 +97,7 @@ export const restaurantApi = {
   },
 
   async getRestaurantDetail(id: string): Promise<FrontendRestaurant> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -117,7 +117,7 @@ export const restaurantApi = {
   async getRestaurantsByCategory(
     category: string
   ): Promise<FrontendRestaurant[]> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -135,7 +135,7 @@ export const restaurantApi = {
   },
 
   async getRestaurantsByTag(tagName: string): Promise<FrontendRestaurant[]> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -158,7 +158,7 @@ export const restaurantApi = {
     longitude: number,
     radiusInMeters = 3000
   ): Promise<RestaurantWithDistance[]> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -198,7 +198,7 @@ export const restaurantApi = {
   async getRestaurantsByTheme(
     themeSlug: string
   ): Promise<FrontendRestaurant[]> {
-    const { data: themeData, error: themeError } = await supabase
+    const { data: themeData, error: themeError } = await db
       .from("themes")
       .select("id")
       .eq("slug", themeSlug)
@@ -207,7 +207,7 @@ export const restaurantApi = {
     if (themeError) throw themeError;
     if (!themeData) throw new Error("Theme not found");
 
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -226,7 +226,7 @@ export const restaurantApi = {
   },
 
   async getAllThemes(): Promise<ThemeInfo[]> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("themes")
       .select(
         `
@@ -263,7 +263,7 @@ export const restaurantApi = {
   },
 
   async getThemeBySlug(slug: string): Promise<ThemeInfo | null> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("themes")
       .select(
         `

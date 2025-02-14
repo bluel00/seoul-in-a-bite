@@ -2,7 +2,7 @@ import { RestaurantCard } from "@/entities/restaurant/ui/RestaurantCard";
 import { Header } from "@/features/navigation/ui/Header";
 import Link from "next/link";
 import { ArrowLeft, SearchX } from "lucide-react";
-import { restaurantApi } from "@/shared/api/restaurants";
+import { restaurantApi } from "@/shared/api/restaurant/restaurantAdapter";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import type { Locale } from "@/shared/i18n/settings";
 

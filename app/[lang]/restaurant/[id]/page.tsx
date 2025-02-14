@@ -1,4 +1,4 @@
-import { restaurantApi } from "@/shared/api/restaurants";
+import { restaurantApi } from "@/shared/api/restaurant/restaurantAdapter";
 import { RestaurantDetail } from "@/widgets/restaurant/ui/RestaurantDetail";
 import { notFound } from "next/navigation";
 import { DetailHeader } from "@/entities/restaurant/ui/DetailHeader";

@@ -2,7 +2,7 @@ import type {
   ApiRestaurant,
   ApiTheme,
   ApiRestaurantWithDistance,
-} from "@/shared/api/types";
+} from "@/shared/api/restaurant/types";
 import type { Restaurant, Theme, RestaurantWithDistance } from "../model/types";
 
 export const restaurantMapper = {

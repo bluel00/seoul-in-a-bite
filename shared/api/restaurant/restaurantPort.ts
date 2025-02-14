@@ -1,4 +1,4 @@
-import { supabase } from "@/shared/lib/supabase";
+import { db } from "@/shared/lib/database";
 import type { ApiRestaurant, ApiTheme } from "./types";
 import { restaurantMapper, themeMapper } from "@/entities/restaurant/mapper";
 import type {
@@ -10,7 +10,7 @@ import { calculateDistance } from "@/shared/utils/distance";
 
 export const restaurantService = {
   async getRestaurants(): Promise<Restaurant[]> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -28,7 +28,7 @@ export const restaurantService = {
   },
 
   async getRestaurantDetail(id: string): Promise<Restaurant> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -47,7 +47,7 @@ export const restaurantService = {
   },
 
   async getRestaurantsByCategory(category: string): Promise<Restaurant[]> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -70,7 +70,7 @@ export const restaurantService = {
     longitude: number,
     radiusInMeters = 3000
   ): Promise<RestaurantWithDistance[]> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("restaurants")
       .select(
         `
@@ -104,7 +104,7 @@ export const restaurantService = {
   },
 
   async getAllThemes(): Promise<Theme[]> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("themes")
       .select(
         `
@@ -121,7 +121,7 @@ export const restaurantService = {
   },
 
   async getThemeBySlug(slug: string): Promise<Theme | null> {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("themes")
       .select(
         `

@@ -1,9 +1,9 @@
-import { supabase } from "../supabase";
+import { db } from "@/shared/lib/database";
 import type { RestaurantResponse, ThemeResponse } from "./types";
 
 export const restaurantApi = {
   async getRestaurants(): Promise<RestaurantResponse[]> {
-    const { data, error } = await supabase.from("restaurants").select("*");
+    const { data, error } = await db.from("restaurants").select("*");
     if (error) throw error;
     return data;
   },

@@ -1,15 +1,23 @@
-// BE 응답 타입 정의
-export interface RestaurantResponse {
-  id: string;
-  name: string;
-  description: string | null;
-  image_url: string;
-  rating: number | null;
-  // ... 다른 BE 응답 필드들
+import type {
+  Restaurant,
+  RestaurantLocation,
+  BusinessHours,
+  Tag,
+  Theme,
+} from "./schema";
+
+export interface ApiRestaurant extends Restaurant {
+  restaurant_locations?: RestaurantLocation[];
+  business_hours?: BusinessHours[];
+  restaurant_tags?: { tags: Tag }[];
+  restaurant_themes?: { themes: Theme }[];
 }
 
-export interface ThemeResponse {
+export interface ApiRestaurantWithDistance extends ApiRestaurant {
+  distance: number;
+}
+
+export interface ApiTheme extends Theme {
+  image_url?: string;
   slug: string;
-  title: string;
-  // ... 다른 BE 응답 필드들
 }

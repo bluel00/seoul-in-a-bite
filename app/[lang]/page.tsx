@@ -2,7 +2,7 @@ import { RestaurantCard } from "@/entities/restaurant/ui/RestaurantCard";
 import { Header } from "@/features/navigation/ui/Header";
 import { SearchBar } from "@/features/search/ui/SearchBar";
 import { ThemeBadges } from "@/features/theme/ui/ThemeBadges";
-import { restaurantService } from "@/shared/api/restaurantService";
+import { restaurantService } from "@/shared/api/restaurant/restaurantPort";
 import type { Restaurant } from "@/entities/restaurant/model/types";
 import { i18n, type Locale } from "@/shared/i18n/settings";
 import { getDictionary } from "@/shared/i18n/dictionaries";
