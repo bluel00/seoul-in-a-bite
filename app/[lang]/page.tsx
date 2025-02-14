@@ -14,12 +14,13 @@ function getRandomRestaurants(restaurants: Restaurant[], count: number) {
 }
 
 interface HomePageProps {
-  params: {
+  params: Promise<{
     lang: Locale;
-  };
+  }>;
 }
 
-export default async function Home({ params }: HomePageProps) {
+export default async function Home(props: HomePageProps) {
+  const params = await props.params;
   const lang = params.lang;
   const dictionary = await getDictionary(lang);
   const allRestaurants = await restaurantService.getRestaurants();

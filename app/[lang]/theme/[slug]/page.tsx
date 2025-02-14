@@ -7,15 +7,20 @@ import { getDictionary } from "@/shared/i18n/dictionaries";
 import type { Locale } from "@/shared/i18n/settings";
 
 interface ThemePageProps {
-  params: {
+  params: Promise<{
     slug: string;
     lang: Locale;
-  };
+  }>;
 }
 
-export default async function ThemePage({
-  params: { slug, lang },
-}: ThemePageProps) {
+export default async function ThemePage(props: ThemePageProps) {
+  const params = await props.params;
+
+  const {
+    slug,
+    lang
+  } = params;
+
   const dictionary = await getDictionary(lang);
 
   if (!slug) {

@@ -23,6 +23,7 @@ async function getDictionaryModule(locale: Locale) {
     case "en":
       return (await import("./dictionaries/en.json")).default;
     case "zh":
+      // zh.json에 누락된 필드 추가 필요
       return (await import("./dictionaries/zh.json")).default;
     default:
       return (await import("./dictionaries/en.json")).default;

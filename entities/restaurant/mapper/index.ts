@@ -10,13 +10,13 @@ export const restaurantMapper = {
     return {
       id: apiRestaurant.id,
       name: apiRestaurant.name,
-      description: apiRestaurant.description || "",
+      description: apiRestaurant.description ?? "",
       category: apiRestaurant.category,
-      rating: apiRestaurant.rating || null,
-      reviewCount: apiRestaurant.review_count || 0,
+      rating: apiRestaurant.rating ?? null,
+      reviewCount: apiRestaurant.review_count ?? 0,
       address: apiRestaurant.address,
       imageUrl: `https://picsum.photos/seed/${apiRestaurant.id}/400/300`,
-      priceRange: apiRestaurant.price_range || "",
+      priceRange: apiRestaurant.price_range ?? "",
       operatingHours: apiRestaurant.business_hours?.[0]?.start_time
         ? `${apiRestaurant.business_hours[0].start_time} - ${apiRestaurant.business_hours[0].end_time}`
         : "",

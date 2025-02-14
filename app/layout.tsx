@@ -9,14 +9,13 @@ const inter = Inter({ subsets: ["latin"] });
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  params: {
+  params: Promise<{
     lang: Locale;
-  };
+  }>;
 }
 
-export async function generateMetadata({
-  params,
-}: RootLayoutProps): Promise<Metadata> {
+export async function generateMetadata(props: RootLayoutProps): Promise<Metadata> {
+  const params = await props.params;
   const dictionary = await getDictionary(params.lang);
 
   return {
@@ -25,7 +24,13 @@ export async function generateMetadata({
   };
 }
 
-export default function RootLayout({ children, params }: RootLayoutProps) {
+export default async function RootLayout(props: RootLayoutProps) {
+  const params = await props.params;
+
+  const {
+    children
+  } = props;
+
   return (
     <html lang={params.lang}>
       <body className={inter.className}>

@@ -4,14 +4,18 @@ import { notFound } from "next/navigation";
 import { DetailHeader } from "@/entities/restaurant/ui/DetailHeader";
 
 interface RestaurantDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default async function RestaurantDetailPage({
-  params: { id },
-}: RestaurantDetailPageProps) {
+export default async function RestaurantDetailPage(props: RestaurantDetailPageProps) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const restaurant = await restaurantApi.getRestaurantDetail(id);
 
   if (!restaurant) {

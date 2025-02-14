@@ -1,15 +1,10 @@
-import { useLoadingStore } from "@/shared/store/loadingStore";
-
-export default function LoadingSpinner() {
-  const isLoading = useLoadingStore((state) => state.isLoading);
-
+export function LoadingSpinner() {
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${
-        isLoading ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
+      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+      role="status"
     >
-      <div className="h-16 w-16 animate-spin rounded-full border-b-2 border-t-2 border-primary"></div>
+      <span className="sr-only">Loading...</span>
     </div>
   );
 }

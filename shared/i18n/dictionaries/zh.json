@@ -8,5 +8,7 @@
   "theme": "主題",
   "noRestaurantsFoundTitle": "沒有餐廳",
   "noRestaurantsFoundDescription": "該主題下尚未添加任何餐廳。",
-  "restaurantsFound": "家餐廳"
+  "restaurantsFound": "家餐廳",
+  "appName": "首尔美食",
+  "appDescription": "发现首尔最好的餐厅"
 }
