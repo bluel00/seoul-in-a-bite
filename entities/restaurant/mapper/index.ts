@@ -7,7 +7,7 @@ import type { Restaurant, Theme, RestaurantWithDistance } from "../model/types";
 
 // 랜덤 이미지 인덱스 생성 함수
 function getRandomImageIndex(): number {
-  return Math.floor(Math.random() * 6) + 1;
+  return Math.floor(Math.random() * 10) + 1;
 }
 
 export const restaurantMapper = {

@@ -37,6 +37,10 @@ function getRestaurantImage(category: string, id: string): string {
       "/images/restaurants/korean-4.png", // 국물요리
       "/images/restaurants/korean-5.png", // 전골
       "/images/restaurants/korean-6.png", // 김치찌개
+      "/images/restaurants/korean-7.png", // 새로운 이미지
+      "/images/restaurants/korean-8.png", // 새로운 이미지
+      "/images/restaurants/korean-9.png", // 새로운 이미지
+      "/images/restaurants/korean-10.png", // 새로운 이미지
     ],
     // 다른 카테고리 이미지들도 추가 가능
   };
