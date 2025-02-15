@@ -44,8 +44,12 @@ function adaptRestaurant(dbRestaurant: DbRestaurant): FrontendRestaurant {
       ? `${dbRestaurant.business_hours[0].start_time} - ${dbRestaurant.business_hours[0].end_time}`
       : "",
     isOpen: true,
-    latitude: dbRestaurant.restaurant_locations?.[0]?.latitude ?? 0,
-    longitude: dbRestaurant.restaurant_locations?.[0]?.longitude ?? 0,
+    latitude:
+      dbRestaurant.restaurant_locations?.[0]?.latitude ??
+      getDefaultLocation(dbRestaurant.category, dbRestaurant.address).latitude,
+    longitude:
+      dbRestaurant.restaurant_locations?.[0]?.longitude ??
+      getDefaultLocation(dbRestaurant.category, dbRestaurant.address).longitude,
     tags: dbRestaurant.restaurant_tags?.map((rt) => rt.tags.name) ?? [],
     phoneNumber: dbRestaurant.phone ?? undefined,
     theme: undefined,
@@ -75,6 +79,59 @@ function calculateDistance(
 
 function toRad(degrees: number): number {
   return degrees * (Math.PI / 180);
+}
+
+// 카테고리와 주소에 따른 기본 위치 정보를 반환하는 함수
+function getDefaultLocation(category: string, address: string) {
+  // 주소에서 구 정보 추출
+  const district = address.split(" ")[1] || "";
+
+  // 구별 기본 위치
+  const districtLocations: Record<
+    string,
+    { latitude: number; longitude: number }
+  > = {
+    강남구: { latitude: 37.5172, longitude: 127.0473 },
+    서초구: { latitude: 37.4837, longitude: 127.0324 },
+    종로구: { latitude: 37.5704, longitude: 126.9922 },
+    중구: { latitude: 37.5642, longitude: 126.9975 },
+    마포구: { latitude: 37.5665, longitude: 126.9018 },
+    용산구: { latitude: 37.5384, longitude: 126.9654 },
+    성동구: { latitude: 37.5635, longitude: 127.0365 },
+    광진구: { latitude: 37.5385, longitude: 127.0825 },
+    동대문구: { latitude: 37.5744, longitude: 127.0395 },
+    중랑구: { latitude: 37.6066, longitude: 127.0927 },
+    성북구: { latitude: 37.5894, longitude: 127.0167 },
+    강북구: { latitude: 37.6396, longitude: 127.0257 },
+    도봉구: { latitude: 37.6688, longitude: 127.0471 },
+    노원구: { latitude: 37.6542, longitude: 127.0568 },
+    은평구: { latitude: 37.6026, longitude: 126.9295 },
+    서대문구: { latitude: 37.5791, longitude: 126.9368 },
+    양천구: { latitude: 37.5171, longitude: 126.8665 },
+    강서구: { latitude: 37.5509, longitude: 126.8497 },
+    구로구: { latitude: 37.4952, longitude: 126.8878 },
+    금천구: { latitude: 37.4566, longitude: 126.8954 },
+    영등포구: { latitude: 37.5264, longitude: 126.8965 },
+    동작구: { latitude: 37.5121, longitude: 126.9395 },
+    관악구: { latitude: 37.4784, longitude: 126.9516 },
+    송파구: { latitude: 37.5145, longitude: 127.106 },
+    강동구: { latitude: 37.5492, longitude: 127.1464 },
+  };
+
+  // 카테고리별 위치 오프셋 (약간의 랜덤성 부여)
+  const offset = {
+    latitude: (Math.random() - 0.5) * 0.01, // ±0.005 정도의 변화
+    longitude: (Math.random() - 0.5) * 0.01,
+  };
+
+  // 구에 해당하는 기본 위치가 있으면 사용, 없으면 강남구 기본값 사용
+  const baseLocation =
+    districtLocations[district] || districtLocations["강남구"];
+
+  return {
+    latitude: baseLocation.latitude + offset.latitude,
+    longitude: baseLocation.longitude + offset.longitude,
+  };
 }
 
 // API 객체
