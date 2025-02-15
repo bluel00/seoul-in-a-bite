@@ -5,6 +5,11 @@ import type {
 } from "@/shared/api/restaurant/types";
 import type { Restaurant, Theme, RestaurantWithDistance } from "../model/types";
 
+// 랜덤 이미지 인덱스 생성 함수
+function getRandomImageIndex(): number {
+  return Math.floor(Math.random() * 6) + 1;
+}
+
 export const restaurantMapper = {
   toDomain(apiRestaurant: ApiRestaurant): Restaurant {
     return {
@@ -15,7 +20,7 @@ export const restaurantMapper = {
       rating: apiRestaurant.rating ?? null,
       reviewCount: apiRestaurant.review_count ?? 0,
       address: apiRestaurant.address,
-      imageUrl: `https://picsum.photos/seed/${apiRestaurant.id}/400/300`,
+      imageUrl: `/images/restaurants/korean-${getRandomImageIndex()}.png`,
       priceRange: apiRestaurant.price_range ?? "",
       operatingHours: apiRestaurant.business_hours?.[0]?.start_time
         ? `${apiRestaurant.business_hours[0].start_time} - ${apiRestaurant.business_hours[0].end_time}`
@@ -47,7 +52,7 @@ export const themeMapper = {
       title: apiTheme.name,
       imageUrl:
         apiTheme.image_url ||
-        `https://picsum.photos/seed/${apiTheme.slug}/400/300`,
+        `/images/restaurants/korean-${getRandomImageIndex()}.png`,
       slug: apiTheme.slug,
     };
   },

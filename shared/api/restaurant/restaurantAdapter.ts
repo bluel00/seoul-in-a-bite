@@ -28,6 +28,24 @@ interface ThemeInfo {
   slug: string;
 }
 
+function getRestaurantImage(category: string, id: string): string {
+  const categoryImages: Record<string, string[]> = {
+    korean: [
+      "/images/restaurants/korean-1.png", // 국수
+      "/images/restaurants/korean-2.png", // 육회
+      "/images/restaurants/korean-3.png", // 삼겹살
+      "/images/restaurants/korean-4.png", // 국물요리
+      "/images/restaurants/korean-5.png", // 전골
+      "/images/restaurants/korean-6.png", // 김치찌개
+    ],
+    // 다른 카테고리 이미지들도 추가 가능
+  };
+
+  const images = categoryImages[category] || categoryImages["korean"];
+  const index = parseInt(id.replace(/\D/g, "")) % images.length;
+  return images[index];
+}
+
 // 데이터 변환을 위한 어댑터 함수
 function adaptRestaurant(dbRestaurant: DbRestaurant): FrontendRestaurant {
   return {
@@ -38,7 +56,7 @@ function adaptRestaurant(dbRestaurant: DbRestaurant): FrontendRestaurant {
     rating: dbRestaurant.rating || null,
     reviewCount: dbRestaurant.review_count || 0,
     address: dbRestaurant.address,
-    imageUrl: `https://picsum.photos/seed/${dbRestaurant.id}/400/300`,
+    imageUrl: getRestaurantImage(dbRestaurant.category, dbRestaurant.id),
     priceRange: dbRestaurant.price_range || "",
     operatingHours: dbRestaurant.business_hours?.[0]?.start_time
       ? `${dbRestaurant.business_hours[0].start_time} - ${dbRestaurant.business_hours[0].end_time}`
