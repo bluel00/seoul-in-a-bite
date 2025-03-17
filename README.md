@@ -1,7 +1,3 @@
-다음은 "한입에 서울" 프로젝트의 README 예시입니다. 이 예시는 기존 정보를 보완하고, FSD 아키텍처에 대한 언급도 포함하고 있습니다.
-
----
-
 # 한입에 서울 (Seoul in a Bite)
 
 **MVP 데모:** [https://seoul-in-a-bite.vercel.app/ko](https://seoul-in-a-bite.vercel.app/ko)
@@ -68,5 +64,3 @@ Next.js와 FSD 아키텍처에 대해 더 알아보시려면 아래 자료들을
 - [Feature-Sliced Design](https://feature-sliced.design/) – FSD 아키텍처에 대한 자세한 설명과 사례를 확인할 수 있습니다.
 
 ---
-
-이 README는 "한입에 서울" 프로젝트를 처음 접하는 사용자와 기여자가 프로젝트를 쉽게 이해하고 사용할 수 있도록 작성되었습니다.
